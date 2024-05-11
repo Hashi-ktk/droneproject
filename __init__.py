@@ -26,10 +26,12 @@ def create_app():
     # Importing Blueprints inside the create_app function to avoid circular imports
     from auth import auth as auth_blueprint
     from main import main as main_blueprint
+    from drone_stream import drone_stream
 
     # Registering Blueprints with the Flask app
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(main_blueprint)
+    app.register_blueprint(drone_stream)
 
     return app
 
