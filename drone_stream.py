@@ -30,5 +30,4 @@ def connect_to_drone():
         me = tello.Tello()
         me.connect()
         me.streamon()
-    return redirect(url_for('main.streaming'))  # Redirect to profile page after connecting to drone
-
+    return redirect(url_for('main.streaming'))
