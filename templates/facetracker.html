@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mt-5 text-danger text-center">
+  Drone Video Feed
+</h1>
+<img src="{{ url_for('face_tracking.video_feed') }}" alt="Drone Video">
+{% endblock %}

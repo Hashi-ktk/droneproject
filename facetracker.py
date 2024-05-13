@@ -1,11 +1,11 @@
-from flask import Flask, render_template, Response
+from flask import Blueprint, render_template, Response
 import cv2
 from djitellopy import Tello
 import numpy as np
 import logging
 import time
 
-app = Flask(__name__)
+face_tracking = Blueprint('face_tracking', __name__)
 
 # width and height of the camera 360, 240
 w, h = 360, 240
@@ -21,7 +21,6 @@ faceLimitArea = [8000, 10000]
 # drone take off start value
 takeoff = False
 land = False
-
 
 # Initialize Tello
 def init_tello():
@@ -43,12 +42,10 @@ def init_tello():
 
     return tello
 
-
 # Get frame on stream
 def get_frame(tello, w=w, h=h):
     tello_frame = tello.get_frame_read().frame
     return cv2.resize(tello_frame, (w, h))
-
 
 # Detecting frontal faces on the given image
 def face_detect(img):
@@ -81,7 +78,6 @@ def face_detect(img):
         return img, [face_list[i], face_list_area[i]]
     else:
         return img, [[0, 0], 0]
-
 
 # Tracking face smoothly with pid
 def face_track(tello, face_info, w, h, pid, pError, pError_y):
@@ -125,8 +121,8 @@ def face_track(tello, face_info, w, h, pid, pError, pError_y):
     tello.send_rc_control(0, forw_backw, speed_y, speed)
     return error, error_y
 
-
 # Route handler for video stream
+@face_tracking.route('/video_feed')
 def video_feed():
     global takeoff, pError, pError_y, land
     tello = init_tello()
@@ -177,17 +173,3 @@ def video_feed():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
-@app.route('/video_feed')
-def video_feed_route():
-    global takeoff
-    return Response(video_feed(), mimetype='multipart/x-mixed-replace; boundary=frame')
-
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8000)

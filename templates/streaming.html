@@ -4,5 +4,17 @@
 <h1 class="mt-5 text-danger text-center">
   Drone Video Feed
 </h1>
-<img src="{{ url_for('drone_stream.video_feed') }}" alt="Drone Video">
+<img id="droneVideo" src="{{ url_for('drone_tracking_bp.video_feed') }}" alt="Drone Video">
+<button id="faceTrackingBtn" class="button is-primary fs-3 d-flex justify-content-center">Face Tracking</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var faceTrackingBtn = document.getElementById("faceTrackingBtn");
+  var droneVideo = document.getElementById("droneVideo");
+
+  faceTrackingBtn.addEventListener("click", function() {
+    droneVideo.src = "{{ url_for('face_tracking.video_feed') }}";
+  });
+});
+</script>
 {% endblock %}
