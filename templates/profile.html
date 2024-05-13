@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
+
+<div class="container back-image"> 
+<h1 class="mt-5 text-danger text-center">
   Welcome, {{name}}!
 </h1>
-<a href="{{ url_for('drone_stream.connect_to_drone') }}" class="button is-primary">Connect to Drone</a>
+<a href="{{ url_for('drone_stream.connect_to_drone') }}" class="button is-primary fs-3 d-flex justify-content-center">Connect to Drone</a>
+</div>
 {% endblock %}

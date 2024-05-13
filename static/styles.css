@@ -1,0 +1,18 @@
+body {
+
+    background-color: rgb(228, 228, 228);
+    color: white;
+}
+
+.navdiv{
+    background-color:black;
+}
+
+body {
+    /* max-height: 80px; */
+    /* margin: 80 auto; */
+    /* padding: 20px; */
+    background-image: url('../static/images/drone3.jpeg');
+    background-size: cover; /* Adjust the size of the background image */
+    /* background-position: left;  */
+}
