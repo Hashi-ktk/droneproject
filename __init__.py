@@ -27,7 +27,7 @@ def create_app():
     from auth import auth as auth_blueprint
     from main import main as main_blueprint
     from drone_stream import drone_stream
-    from facetracker import face_tracking
+    from face_track import face_tracking
 
     # Registering Blueprints with the Flask app
     app.register_blueprint(auth_blueprint)

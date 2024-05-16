@@ -154,6 +154,6 @@ def stop_tracking_route():
     stop_tracking = True
     return render_template('profile.html')
 
-@face_tracking.route('/connect_to_drone')
-def connect_to_drone():
+@face_tracking.route('/connect_to_facetracker')
+def connect_to_facetracker():
     return render_template('facetracker.html')
