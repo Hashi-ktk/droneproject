@@ -106,8 +106,8 @@ def face_track(tello, face_info, w, h, pid, pError, pError_y):
     return error, error_y
 
 # Route handler for video stream
-@face_tracking.route('/video_feed')
-def video_feed():
+@face_tracking.route('/facetracker_video_feed')
+def facetracker_video_feed():
     global takeoff, pError, pError_y, land, stop_tracking
     stop_tracking = False
     tello = init_tello()

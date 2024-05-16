@@ -5,7 +5,7 @@
   <h1 class="mt-5 text-danger text-center">
     Drone Video Feed For Face Tracking
   </h1>
-  <img id="droneVideo" src="{{ url_for('face_tracking.video_feed') }}" alt="Drone Video">
+  <img id="droneVideo" src="{{ url_for('face_tracking.facetracker_video_feed') }}" alt="Drone Video">
   <button id="stopTrackingBtn" class="button is-danger fs-3 d-flex justify-content-center mt-3">Stop Face Tracking</button>
 
   <script>
@@ -19,6 +19,7 @@
         .then(data => {
           console.log(data); // Log response from the server
           droneVideo.src = ""; // Clear the video feed
+          alert('Face tracking stopped.');
         })
         .catch(error => console.error('Error:', error));
     });
