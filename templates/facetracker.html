@@ -1,8 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="mt-5 text-danger text-center">
-  Drone Video Feed
-</h1>
-<img src="{{ url_for('face_tracking.video_feed') }}" alt="Drone Video">
+<div class="container back-image"> 
+  <h1 class="mt-5 text-danger text-center">
+    Drone Video Feed
+  </h1>
+  <img id="droneVideo" src="{{ url_for('face_tracking.video_feed') }}" alt="Drone Video">
+  <button id="stopTrackingBtn" class="button is-danger fs-3 d-flex justify-content-center mt-3">Stop Face Tracking</button>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var stopTrackingBtn = document.getElementById("stopTrackingBtn");
+    var droneVideo = document.getElementById("droneVideo");
+
+    stopTrackingBtn.addEventListener("click", function() {
+      fetch("{{ url_for('face_tracking.stop_tracking_route') }}")
+        .then(response => response.text())
+        .then(data => {
+          console.log(data); // Log response from the server
+          droneVideo.src = ""; // Clear the video feed
+        })
+        .catch(error => console.error('Error:', error));
+    });
+  });
+  </script>
+</div>
 {% endblock %}

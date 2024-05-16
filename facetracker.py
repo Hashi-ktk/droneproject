@@ -1,4 +1,4 @@
-from flask import Blueprint, Response
+from flask import Blueprint, render_template, Response
 import cv2
 from djitellopy import Tello
 import numpy as np
@@ -152,4 +152,8 @@ def video_feed():
 def stop_tracking_route():
     global stop_tracking
     stop_tracking = True
-    return "Face tracking stopped"
+    return render_template('profile.html')
+
+@face_tracking.route('/connect_to_drone')
+def connect_to_drone():
+    return render_template('facetracker.html')
