@@ -10,6 +10,7 @@ def create_app():
 
     app.config['SECRET_KEY'] = 'droneproject'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+    
 
     # Registering SQLAlchemy with the Flask app
     db.init_app(app)
@@ -28,11 +29,15 @@ def create_app():
     from main import main as main_blueprint
     from drone_stream import drone_stream
     from face_track import face_tracking
+    from body_track import body_tracking
+    from hand_gesture import hand_gesture_control
 
     # Registering Blueprints with the Flask app
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(main_blueprint)
     app.register_blueprint(drone_stream)
     app.register_blueprint(face_tracking)
+    app.register_blueprint(body_tracking)
+    app.register_blueprint(hand_gesture_control)
 
     return app

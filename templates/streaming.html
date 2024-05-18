@@ -5,29 +5,79 @@
   Drone Video Feed
 </h1>
 <img id="droneVideo" src="{{ url_for('drone_stream.video_feed') }}" alt="Drone Video">
-<button id="faceTrackingBtn" class="button is-primary fs-3 d-flex justify-content-center">Start Face Tracking</button>
-<button id="stopTrackingBtn" class="button is-danger fs-3 d-flex justify-content-center mt-3">Stop Face Tracking</button>
+<div class="d-flex flex-column align-items-center">
+  <button id="faceTrackingBtn" class="button is-primary fs-3 mt-3">Face Tracking</button>
+  <button id="bodyTrackingBtn" class="button is-info fs-3 mt-3">Body Tracking</button>
+  <button id="handGestureControlBtn" class="button is-success fs-3 mt-3">Hand Gesture Control</button>
+  <button id="startRecordingBtn" class="button is-warning fs-3 mt-3">Start Recording</button>
+  <button id="stopRecordingBtn" class="button is-danger fs-3 mt-3">Stop Recording</button>
+  <button id="captureImageBtn" class="button is-dark fs-3 mt-3">Capture Image</button>
+  <button id="disconnectDroneBtn" class="button is-danger fs-3 mt-3">Disconnect Drone</button>
+</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   var faceTrackingBtn = document.getElementById("faceTrackingBtn");
-  var stopTrackingBtn = document.getElementById("stopTrackingBtn");
-  var droneVideo = document.getElementById("droneVideo");
+  var bodyTrackingBtn = document.getElementById("bodyTrackingBtn");
+  var handGestureControlBtn = document.getElementById("handGestureControlBtn");
+  var startRecordingBtn = document.getElementById("startRecordingBtn");
+  var stopRecordingBtn = document.getElementById("stopRecordingBtn");
+  var captureImageBtn = document.getElementById("captureImageBtn");
+  var disconnectDroneBtn = document.getElementById("disconnectDroneBtn");
 
   faceTrackingBtn.addEventListener("click", function() {
-    droneVideo.src = "{{ url_for('face_tracking.facetracker_video_feed') }}";
+    window.location.href = "{{ url_for('face_tracking.connect_to_facetracker') }}";
   });
 
-  stopTrackingBtn.addEventListener("click", function() {
-    fetch("{{ url_for('face_tracking.stop_tracking_route') }}")
+  bodyTrackingBtn.addEventListener("click", function() {
+    window.location.href = "{{ url_for('body_tracking.connect_for_bodytracking') }}";
+  });
+
+  handGestureControlBtn.addEventListener("click", function() {
+    window.location.href = "{{ url_for('hand_gesture_control.connect_for_handgesture') }}";
+  });
+
+  startRecordingBtn.addEventListener("click", function() {
+    fetch("{{ url_for('drone_stream.start_recording') }}")
       .then(response => response.text())
       .then(data => {
         console.log(data); // Log response from the server
-        droneVideo.src = ""; // Clear the video feed
-        alert('Face tracking stopped.');
+        alert('Recording started.');
       })
       .catch(error => console.error('Error:', error));
   });
+
+  stopRecordingBtn.addEventListener("click", function() {
+    fetch("{{ url_for('drone_stream.stop_recording') }}")
+      .then(response => response.text())
+      .then(data => {
+        console.log(data); // Log response from the server
+        alert('Recording stopped.');
+      })
+      .catch(error => console.error('Error:', error));
+  });
+
+  captureImageBtn.addEventListener("click", function() {
+    fetch("{{ url_for('drone_stream.capture_image') }}")
+      .then(response => response.text())
+      .then(data => {
+        console.log(data); // Log response from the server
+        alert('Image captured.');
+      })
+      .catch(error => console.error('Error:', error));
+  });
+
+  disconnectDroneBtn.addEventListener("click", function() {
+    fetch("{{ url_for('drone_stream.disconnect_drone') }}")
+      .then(response => response.text())
+      .then(data => {
+        console.log(data); // Log response from the server
+        alert('Drone disconnected.');
+        window.location.href = "{{ url_for('main.profile') }}"; // Redirect to home or another page
+      })
+      .catch(error => console.error('Error:', error));
+  });
+
 });
 </script>
 {% endblock %}

@@ -125,7 +125,7 @@ def facetracker_video_feed():
             if not takeoff:
                 try:
                     tello.takeoff()
-                    tello.move_up(80)
+                    tello.move_up(100)
                     takeoff = True
                     land = True
                     time.sleep(2.2)
@@ -152,7 +152,7 @@ def facetracker_video_feed():
 def stop_tracking_route():
     global stop_tracking
     stop_tracking = True
-    return render_template('profile.html')
+    return render_template('streaming.html')
 
 @face_tracking.route('/connect_to_facetracker')
 def connect_to_facetracker():
