@@ -5,20 +5,20 @@
   <h1 class="mt-5 text-danger text-center">
     Drone Video Feed For Hand Gesture Control
   </h1>
-  <img id="droneVideo" src="{{ url_for('hand_gesture_control.handgesture_video_feed') }}" alt="Drone Video">
+  <img id="HandControlVideo" src="{{ url_for('hand_gesture_control.handgesture_video_feed') }}" alt="Drone Video">
   <button id="stopTrackingBtn" class="button is-danger fs-3 d-flex justify-content-center mt-3">Stop Body Tracking</button>
 
   <script>
   document.addEventListener("DOMContentLoaded", function() {
     var stopTrackingBtn = document.getElementById("stopTrackingBtn");
-    var droneVideo = document.getElementById("droneVideo");
+    var HandControlVideo = document.getElementById("HandControlVideo");
 
     stopTrackingBtn.addEventListener("click", function() {
       fetch("{{ url_for('hand_gesture_control.stop_handgesture') }}")
         .then(response => response.text())
         .then(data => {
           console.log(data); // Log response from the server
-          droneVideo.src = ""; // Clear the video feed
+          HandControlVideo.src = ""; // Clear the video feed
           alert('Hand Gesture Control will be stopped.');
         })
         .catch(error => console.error('Error:', error));

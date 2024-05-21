@@ -5,20 +5,20 @@
   <h1 class="mt-5 text-danger text-center">
     Drone Video Feed For Body Tracking
   </h1>
-  <img id="droneVideo" src="{{ url_for('body_tracking.bodytracking_video_feed') }}" alt="Drone Video">
+  <img id="BodyTrackingVideo" src="{{ url_for('body_tracking.bodytracking_video_feed') }}" alt="Drone Video">
   <button id="stopTrackingBtn" class="button is-danger fs-3 d-flex justify-content-center mt-3">Stop Body Tracking</button>
 
   <script>
   document.addEventListener("DOMContentLoaded", function() {
     var stopTrackingBtn = document.getElementById("stopTrackingBtn");
-    var droneVideo = document.getElementById("droneVideo");
+    var BodyTrackingVideo = document.getElementById("BodyTrackingVideo");
 
     stopTrackingBtn.addEventListener("click", function() {
       fetch("{{ url_for('body_tracking.stop_bodytracking') }}")
         .then(response => response.text())
         .then(data => {
           console.log(data); // Log response from the server
-          droneVideo.src = ""; // Clear the video feed
+          BodyTrackingVideo.src = ""; // Clear the video feed
           alert('Body tracking will be stopped.');
         })
         .catch(error => console.error('Error:', error));
