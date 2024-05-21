@@ -6,6 +6,8 @@ import os
 
 drone_stream = Blueprint('drone_stream', __name__)
 me = None
+recording = None
+out = None
 
 # Function to generate frames for streaming
 def generate_frames():
@@ -27,8 +29,9 @@ def generate_frames():
 def start_recording():
     global recording, out
     # Directory paths for storing recordings and images
-    RECORDINGS_DIR = os.path.join("Recordings", current_user.username)
+    RECORDINGS_DIR = os.path.join("Recordings", "Hashir")
     os.makedirs(RECORDINGS_DIR, exist_ok=True)
+    
 
     recording = True
     out = cv2.VideoWriter(os.path.join(RECORDINGS_DIR, f"video_{len(os.listdir(RECORDINGS_DIR)) + 1}.avi"),
@@ -51,7 +54,7 @@ def stop_recording():
 def capture_image():
     global me
     # Directory paths for storing recordings and images
-    IMAGES_DIR = os.path.join("Images", current_user.username)
+    IMAGES_DIR = os.path.join("Images", "Hashir")
     os.makedirs(IMAGES_DIR, exist_ok=True)
 
     if me:
