@@ -119,6 +119,7 @@ def facetracker_video_feed():
                 if land:
                     tello.streamoff()
                     tello.land()
+                    tello.end()
                     land = False
                 break
 
@@ -148,9 +149,9 @@ def facetracker_video_feed():
 
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@face_tracking.route('/stop_tracking')
-def stop_tracking_route():
-    global stop_tracking
+@face_tracking.route('/stop_facetracking')
+def stop_facetracking():
+    global stop_tracking, tello
     stop_tracking = True
     return render_template('profile.html')
 

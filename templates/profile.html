@@ -5,7 +5,7 @@
   <h1 class="mt-5 text-danger text-center">
     Welcome, {{ name }}!
   </h1>
-  <a href="{{ url_for('drone_stream.connect_to_drone') }}" class="button is-primary fs-3 d-flex justify-content-center">Connect to Drone</a>
   <a href="{{ url_for('face_tracking.connect_to_facetracker') }}" class="button is-primary fs-3 d-flex justify-content-center">Start Face Tracking</a>
+  <a href="{{ url_for('body_tracking.connect_to_bodytracker') }}" class="button is-primary fs-3 d-flex justify-content-center">Start Body Tracking</a>
 </div>
 {% endblock %}
