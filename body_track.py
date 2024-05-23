@@ -23,39 +23,34 @@ zPID = PID([0.00016, 0, 0.000011], 150000, limit=[-20, 15])
 takeoff = False
 land = False
 stop_tracking = False
+tello = None
 
 # Initialize Tello
 def init_tello():
+    global tello
     tello = Tello()
     Tello.LOGGER.setLevel(logging.WARNING)
     tello.connect()
     print("Tello battery:", tello.get_battery())
 
-    # Velocity values
-    tello.for_back_velocity = 0
-    tello.left_right_velocity = 0
-    tello.up_down_velocity = 0
-    tello.yaw_velocity = 0
-    tello.speed = 0
-
     # Streaming
     tello.streamoff()
     tello.streamon()
 
-    return tello
-
 # Get frame from stream
-def get_frame(tello, hi=hi, wi=wi):
+def get_frame(hi=hi, wi=wi):
     tello_frame = tello.get_frame_read().frame
     return cv2.resize(tello_frame, (wi, hi))
 
 # Route handler for video stream
 @body_tracking.route('/bodytracker_video_feed')
 def bodytracker_video_feed():
-    global takeoff, land, stop_tracking
+    global takeoff, land, stop_tracking, tello
     stop_tracking = False
-    tello = init_tello()
-    
+
+    if tello is None:
+        init_tello()
+
     def generate_frames():
         global takeoff, land, stop_tracking
         while True:
@@ -77,7 +72,7 @@ def bodytracker_video_feed():
                 except Exception as e:
                     print(f"Error during takeoff: {e}")
 
-            img = get_frame(tello, hi, wi)
+            img = get_frame(hi, wi)
             img = detector.findPose(img, draw=True)
             lmList, bboxInfo = detector.findPosition(img, draw=True)
 
@@ -109,7 +104,7 @@ def bodytracker_video_feed():
 
 @body_tracking.route('/stop_bodytracking')
 def stop_bodytracking():
-    global stop_tracking
+    global stop_tracking, tello
     stop_tracking = True
     return render_template('profile.html')
 

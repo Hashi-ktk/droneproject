@@ -29,6 +29,7 @@ def create_app():
     from drone_stream import drone_stream
     from face_track import face_tracking
     from body_track import body_tracking
+    from handgestures_control import handgestures_control
 
     # Registering Blueprints with the Flask app
     app.register_blueprint(auth_blueprint)
@@ -36,5 +37,6 @@ def create_app():
     app.register_blueprint(drone_stream)
     app.register_blueprint(face_tracking)
     app.register_blueprint(body_tracking)
+    app.register_blueprint(handgestures_control)
 
     return app

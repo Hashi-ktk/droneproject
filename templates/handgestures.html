@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container back-image"> 
+  <h1 class="mt-5 text-danger text-center">
+    Drone Video Feed For Hand Gestures
+  </h1>
+  <img id="droneVideo" src="{{ url_for('handgestures_control.handgestures_video_feed') }}" alt="Drone Video">
+  <button id="stopTrackingBtn" class="button is-danger fs-3 d-flex justify-content-center mt-3">Stop Hand Gestures</button>
+  <button id="backBtn" class="button is-primary fs-3 d-flex justify-content-center mt-3">Back</button>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var stopTrackingBtn = document.getElementById("stopTrackingBtn");
+    var droneVideo = document.getElementById("droneVideo");
+    var backBtn = document.getElementById("backBtn");
+
+    stopTrackingBtn.addEventListener("click", function() {
+      fetch("{{ url_for('handgestures_control.stop_handgestures') }}")
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          droneVideo.src = "";
+          alert('Hand gestures tracking stopped.');
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    backBtn.addEventListener("click", function() {
+      fetch("{{ url_for('handgestures_control.disconnect_to_handgesture') }}")
+        .then(response => response.text())
+        .then(data => {
+          window.location.href = "{{ url_for('handgestures_control.connect_to_handgestures') }}";
+        })
+        .catch(error => console.error('Error:', error));
+    });
+  });
+  </script>
+</div>
+{% endblock %}
