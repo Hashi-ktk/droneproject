@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, Response
+from flask_login import login_required, current_user
 from cvzone.PIDModule import PID
 from djitellopy import Tello
 import cv2
 from cvzone.PoseModule import PoseDetector
 import logging
-import time
+import os
 
 body_tracking = Blueprint('body_tracking', __name__)
 
@@ -24,6 +25,8 @@ takeoff = False
 land = False
 stop_tracking = False
 tello = None
+recording = False
+out = None
 
 # Initialize Tello
 def init_tello():
@@ -45,14 +48,14 @@ def get_frame(hi=hi, wi=wi):
 # Route handler for video stream
 @body_tracking.route('/bodytracker_video_feed')
 def bodytracker_video_feed():
-    global takeoff, land, stop_tracking, tello
+    global takeoff, land, stop_tracking, tello, recording, out
     stop_tracking = False
 
     if tello is None:
         init_tello()
 
     def generate_frames():
-        global takeoff, land, stop_tracking
+        global takeoff, land, stop_tracking, recording, out
         while True:
             if stop_tracking:
                 if land:
@@ -60,6 +63,9 @@ def bodytracker_video_feed():
                     tello.land()
                     tello.end()
                     land = False
+                if recording and out is not None:
+                    out.release()
+                    recording = False
                 break
 
             if not takeoff:
@@ -67,8 +73,6 @@ def bodytracker_video_feed():
                     tello.takeoff()
                     tello.move_up(100)
                     takeoff = True
-                    land = True
-                    time.sleep(2.2)
                 except Exception as e:
                     print(f"Error during takeoff: {e}")
 
@@ -94,6 +98,9 @@ def bodytracker_video_feed():
                 cv2.putText(img, str(area), (20, 50), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
 
             tello.send_rc_control(0, -zVal, -yVal, xVal)
+
+            if recording and out is not None:
+                out.write(img)
             
             ret, jpeg = cv2.imencode('.jpg', img)
             frame = jpeg.tobytes()
@@ -111,3 +118,48 @@ def stop_bodytracking():
 @body_tracking.route('/connect_to_bodytracker')
 def connect_to_bodytracker():
     return render_template('bodytracker.html')
+
+@body_tracking.route('/capture_image')
+@login_required
+def capture_image():
+    global tello
+    user = current_user.name
+    img = get_frame(hi, wi)
+    user_dir = os.path.join('Images', user)
+    os.makedirs(user_dir, exist_ok=True)
+    i = 0
+    while True:
+        image_path = os.path.join(user_dir, f'image{i}.jpg')
+        if not os.path.exists(image_path):
+            cv2.imwrite(image_path, img)
+            break
+        i += 1
+    return f"Image saved as {image_path}"
+
+@body_tracking.route('/start_recording')
+def start_recording():
+    global recording, out    
+    user = current_user.name
+    if not recording:
+        user_dir = os.path.join('Videos', user)
+        os.makedirs(user_dir, exist_ok=True)
+        i = 0
+        while True:
+            video_path = os.path.join(user_dir, f'video{i}.mp4')
+            if not os.path.exists(video_path):
+                fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+                out = cv2.VideoWriter(video_path, fourcc, 30.0, (wi, hi))
+                recording = True
+                break
+            i += 1
+        return f"Recording started and will be saved as {video_path}"
+    return "Already recording"
+
+@body_tracking.route('/stop_recording')
+def stop_recording():
+    global recording, out
+    if recording and out is not None:
+        out.release()
+        recording = False
+        return "Recording stopped and saved"
+    return "No active recording to stop"
