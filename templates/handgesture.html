@@ -5,7 +5,7 @@
   <h1 class="mt-5 text-danger text-center">
     Drone Video Feed For Hand Gestures
   </h1>
-  <img id="droneVideo" src="{{ url_for('handgestures_control.handgestures_video_feed') }}" alt="Drone Video">
+  <img id="droneVideo" src="{{ url_for('handgesture_control.handgesture_video_feed') }}" alt="Drone Video">
   <div class="d-flex justify-content-center mt-3">
     <button id="captureImageBtn" class="button is-info fs-3 me-2">Capture Image</button>
     <button id="startRecordingBtn" class="button is-success fs-3 me-2">Start Recording</button>
@@ -24,7 +24,7 @@
     var backBtn = document.getElementById("backBtn");
 
     captureImageBtn.addEventListener("click", function() {
-      fetch("{{ url_for('handgestures_control.capture_image') }}")
+      fetch("{{ url_for('handgesture_control.capture_image') }}")
         .then(response => response.text())
         .then(data => {
           alert(data);
@@ -33,7 +33,7 @@
     });
 
     startRecordingBtn.addEventListener("click", function() {
-      fetch("{{ url_for('handgestures_control.start_recording') }}")
+      fetch("{{ url_for('handgesture_control.start_recording') }}")
         .then(response => response.text())
         .then(data => {
           alert(data);
@@ -42,7 +42,7 @@
     });
 
     stopRecordingBtn.addEventListener("click", function() {
-      fetch("{{ url_for('handgestures_control.stop_recording') }}")
+      fetch("{{ url_for('handgesture_control.stop_recording') }}")
         .then(response => response.text())
         .then(data => {
           alert(data);
@@ -51,7 +51,7 @@
     });
 
     stopTrackingBtn.addEventListener("click", function() {
-      fetch("{{ url_for('handgestures_control.stop_handgestures') }}")
+      fetch("{{ url_for('handgesture_control.stop_handgesture') }}")
         .then(response => response.text())
         .then(data => {
           console.log(data);
@@ -62,7 +62,7 @@
     });
 
     backBtn.addEventListener("click", function() {
-      fetch("{{ url_for('handgestures_control.disconnect_to_handgestures') }}")
+      fetch("{{ url_for('handgesture_control.disconnect_to_handgesture') }}")
         .then(response => response.text())
         .then(data => {
           window.location.href = "{{ url_for('main.profile') }}";

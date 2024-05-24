@@ -8,7 +8,7 @@ import logging
 import os
 import time
 
-handgestures_control = Blueprint('handgestures_control', __name__)
+handgesture_control = Blueprint('handgesture_control', __name__)
 
 # Initialize MediaPipe for hand detection
 mpHands = mp.solutions.hands
@@ -139,8 +139,8 @@ def control_drone():
     tello.streamoff()
     print("Battery:", tello.get_battery())
 
-@handgestures_control.route('/handgestures_video_feed')
-def handgestures_video_feed():
+@handgesture_control.route('/handgesture_video_feed')
+def handgesture_video_feed():
     global stop_tracking
     stop_tracking = False
 
@@ -155,24 +155,24 @@ def handgestures_video_feed():
 
     return Response(hand_detection(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@handgestures_control.route('/stop_handgestures')
-def stop_handgestures():
+@handgesture_control.route('/stop_handgesture')
+def stop_handgesture():
     global stop_tracking
     stop_tracking = True
     return render_template('profile.html')
 
-@handgestures_control.route('/connect_to_handgestures')
-def connect_to_handgestures():
-    return render_template('handgestures.html')
+@handgesture_control.route('/connect_to_handgesture')
+def connect_to_handgesture():
+    return render_template('handgesture.html')
 
-@handgestures_control.route('/disconnect_to_handgestures')
-def disconnect_to_handgestures():
+@handgesture_control.route('/disconnect_to_handgesture')
+def disconnect_to_handgesture():
     global tello
     tello.streamoff()
     tello.end()
     return render_template('profile.html')
 
-@handgestures_control.route('/capture_image')
+@handgesture_control.route('/capture_image')
 @login_required
 def capture_image():
     global tello
@@ -190,7 +190,7 @@ def capture_image():
         i += 1
     return f"Image saved as {image_path}"
 
-@handgestures_control.route('/start_recording')
+@handgesture_control.route('/start_recording')
 @login_required
 def start_recording():
     global recording, out
@@ -210,7 +210,7 @@ def start_recording():
         return f"Recording started and will be saved as {video_path}"
     return "Already recording"
 
-@handgestures_control.route('/stop_recording')
+@handgesture_control.route('/stop_recording')
 @login_required
 def stop_recording():
     global recording, out
