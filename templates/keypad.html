@@ -3,38 +3,36 @@
 {% block content %}
 <div class="container back-image"> 
   <h1 class="mt-5 text-danger text-center">
-    Drone Video Feed For Face Tracking
+    Drone Video Feed with Keypad Control
   </h1>
-  <img id="droneVideo" src="{{ url_for('face_tracking.facetracker_video_feed') }}" alt="Drone Video">
+  <div class="tutorial mb-3">
+    <h2 class="text-center">Keypad Control Guidelines:</h2>
+    <ul>
+      <li>Use arrow keys for directional movement (LEFT, RIGHT, UP, DOWN).</li>
+      <li>Press 'W' to ascend and 'S' to descend.</li>
+      <li>Press 'A' to rotate left and 'D' to rotate right.</li>
+      <li>Press 'F' to perform a flip.</li>
+      <li>Press 'Q' to land (Hold for 3 seconds).</li>
+      <li>Press 'E' to take off.</li>
+    </ul>
+  </div>
+  <img id="droneVideo" src="{{ url_for('keypad_control.keypad_video_feed') }}" alt="Drone Video">
   
   <div class="button-group d-flex justify-content-center mt-3">
     <button id="captureImageBtn" class="button is-primary fs-3 mx-2">Capture Image</button>
     <button id="startRecordingBtn" class="button is-success fs-3 mx-2">Start Recording</button>
     <button id="stopRecordingBtn" class="button is-warning fs-3 mx-2">Stop Recording</button>
-    <button id="stopTrackingBtn" class="button is-danger fs-3 mx-2">Stop Face Tracking</button>
   </div>
 
   <script>
   document.addEventListener("DOMContentLoaded", function() {
-    var stopTrackingBtn = document.getElementById("stopTrackingBtn");
     var captureImageBtn = document.getElementById("captureImageBtn");
     var startRecordingBtn = document.getElementById("startRecordingBtn");
     var stopRecordingBtn = document.getElementById("stopRecordingBtn");
     var droneVideo = document.getElementById("droneVideo");
 
-    stopTrackingBtn.addEventListener("click", function() {
-      fetch("{{ url_for('face_tracking.stop_facetracking') }}")
-        .then(response => response.text())
-        .then(data => {
-          console.log(data);
-          droneVideo.src = "";
-          alert('Face tracking stopped.');
-        })
-        .catch(error => console.error('Error:', error));
-    });
-
     captureImageBtn.addEventListener("click", function() {
-      fetch("{{ url_for('face_tracking.capture_image') }}")
+      fetch("{{ url_for('keypad_control.capture_image') }}")
         .then(response => response.text())
         .then(data => {
           console.log(data);
@@ -44,7 +42,7 @@
     });
 
     startRecordingBtn.addEventListener("click", function() {
-      fetch("{{ url_for('face_tracking.start_recording') }}")
+      fetch("{{ url_for('keypad_control.start_recording') }}")
         .then(response => response.text())
         .then(data => {
           console.log(data);
@@ -54,7 +52,7 @@
     });
 
     stopRecordingBtn.addEventListener("click", function() {
-      fetch("{{ url_for('face_tracking.stop_recording') }}")
+      fetch("{{ url_for('keypad_control.stop_recording') }}")
         .then(response => response.text())
         .then(data => {
           console.log(data);

@@ -1,9 +1,11 @@
-from flask import Blueprint, Response
+from flask import Blueprint, render_template, Response
 import cv2
 from djitellopy import Tello
+from flask_login import login_required, current_user
 import numpy as np
 import logging
 import time
+import os
 
 face_tracking = Blueprint('face_tracking', __name__)
 
@@ -19,9 +21,12 @@ pError_y = 0
 faceLimitArea = [8000, 10000]
 
 # drone state variables
+tello = None
 takeoff = False
 land = False
 stop_tracking = False
+recording = False
+out = None
 
 # Initialize Tello
 def init_tello():
@@ -106,20 +111,24 @@ def face_track(tello, face_info, w, h, pid, pError, pError_y):
     return error, error_y
 
 # Route handler for video stream
-@face_tracking.route('/video_feed')
-def video_feed():
-    global takeoff, pError, pError_y, land, stop_tracking
+@face_tracking.route('/facetracker_video_feed')
+def facetracker_video_feed():
+    global tello, takeoff, pError, pError_y, land, stop_tracking, recording, out
     stop_tracking = False
     tello = init_tello()
     
     def generate_frames():
-        global takeoff, pError, pError_y, land, stop_tracking
+        global takeoff, pError, pError_y, land, stop_tracking, recording, out
         while True:
             if stop_tracking:
                 if land:
                     tello.streamoff()
                     tello.land()
+                    tello.end()
                     land = False
+                if recording and out is not None:
+                    out.release()
+                    recording = False
                 break
 
             if not takeoff:
@@ -141,6 +150,9 @@ def video_feed():
             img = cv2.putText(img, f'pError_y: {pError_y}', (0, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 100, 0), 1, cv2.LINE_AA)
             img = cv2.putText(img, f'Area: {face_info[1]}', (0, 120), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 100, 0), 1, cv2.LINE_AA)
             
+            if recording and out is not None:
+                out.write(img)
+
             ret, jpeg = cv2.imencode('.jpg', img)
             frame = jpeg.tobytes()
             yield (b'--frame\r\n'
@@ -148,8 +160,58 @@ def video_feed():
 
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@face_tracking.route('/stop_tracking')
-def stop_tracking_route():
+@face_tracking.route('/capture_image')
+@login_required
+def capture_image():
+    global tello
+    user = current_user.name
+    img = get_frame(tello, w, h)
+    user_dir = os.path.join('Images', user)
+    os.makedirs(user_dir, exist_ok=True)
+    i = 0
+    while True:
+        image_path = os.path.join(user_dir, f'image{i}.jpg')
+        if not os.path.exists(image_path):
+            cv2.imwrite(image_path, img)
+            break
+        i += 1
+    return f"Image saved as {image_path}"
+
+@face_tracking.route('/start_recording')
+@login_required
+def start_recording():
+    global recording, out
+    user = current_user.name
+    if not recording:
+        user_dir = os.path.join('Videos', user)
+        os.makedirs(user_dir, exist_ok=True)
+        i = 0
+        while True:
+            video_path = os.path.join(user_dir, f'video{i}.mp4')
+            if not os.path.exists(video_path):
+                fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+                out = cv2.VideoWriter(video_path, fourcc, 30.0, (w, h))
+                recording = True
+                break
+            i += 1
+        return f"Recording started and will be saved as {video_path}"
+    return "Already recording"
+
+@face_tracking.route('/stop_recording')
+def stop_recording():
+    global recording, out
+    if recording and out is not None:
+        out.release()
+        recording = False
+        return "Recording stopped and saved"
+    return "No active recording to stop"
+
+@face_tracking.route('/stop_facetracking')
+def stop_facetracking():
     global stop_tracking
     stop_tracking = True
-    return "Face tracking stopped"
+    return render_template('profile.html')
+
+@face_tracking.route('/connect_to_facetracker')
+def connect_to_facetracker():
+    return render_template('facetracker.html')

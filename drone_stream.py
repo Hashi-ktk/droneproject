@@ -31,3 +31,11 @@ def connect_to_drone():
         me.connect()
         me.streamon()
     return redirect(url_for('main.streaming'))
+
+@drone_stream.route('/disconnect_to_drone')
+def disconnect_to_drone():
+    global me
+    if me is None:
+        me = tello.Tello()
+        me.streamoff()
+        me.end()
