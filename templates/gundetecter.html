@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container back-image"> 
+  <h1 class="mt-5 text-danger text-center">
+    Drone Video Feed For Gun Detection
+  </h1>
+  <img id="droneVideo" src="{{ url_for('gun_detecting.gundetecter_video_feed') }}" alt="Drone Video">
+  
+  <div class="button-group d-flex justify-content-center mt-3">
+    <button id="captureImageBtn" class="button is-primary fs-3 mx-2">Capture Image</button>
+    <button id="startRecordingBtn" class="button is-success fs-3 mx-2">Start Recording</button>
+    <button id="stopRecordingBtn" class="button is-warning fs-3 mx-2">Stop Recording</button>
+    <button id="stopTrackingBtn" class="button is-danger fs-3 mx-2">Stop Gun Detection</button>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var stopTrackingBtn = document.getElementById("stopTrackingBtn");
+    var captureImageBtn = document.getElementById("captureImageBtn");
+    var startRecordingBtn = document.getElementById("startRecordingBtn");
+    var stopRecordingBtn = document.getElementById("stopRecordingBtn");
+    var droneVideo = document.getElementById("droneVideo");
+
+    stopTrackingBtn.addEventListener("click", function() {
+      fetch("{{ url_for('gun_detecting.stop_gundetecting') }}")
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          droneVideo.src = "";
+          alert('Gun Detection stopped.');
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    captureImageBtn.addEventListener("click", function() {
+      fetch("{{ url_for('gun_detecting.capture_image') }}")
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          alert('Image captured: ' + data);
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    startRecordingBtn.addEventListener("click", function() {
+      fetch("{{ url_for('gun_detecting.start_recording') }}")
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          alert(data);
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    stopRecordingBtn.addEventListener("click", function() {
+      fetch("{{ url_for('gun_detecting.stop_recording') }}")
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          alert(data);
+        })
+        .catch(error => console.error('Error:', error));
+    });
+  });
+  </script>
+</div>
+{% endblock %}

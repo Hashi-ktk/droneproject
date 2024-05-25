@@ -60,6 +60,55 @@
         })
         .catch(error => console.error('Error:', error));
     });
+
+    document.addEventListener('keydown', function(event) {
+      let key;
+      switch(event.key) {
+        case 'ArrowLeft':
+          key = 'LEFT';
+          break;
+        case 'ArrowRight':
+          key = 'RIGHT';
+          break;
+        case 'ArrowUp':
+          key = 'UP';
+          break;
+        case 'ArrowDown':
+          key = 'DOWN';
+          break;
+        case 'w':
+          key = 'w';
+          break;
+        case 's':
+          key = 's';
+          break;
+        case 'a':
+          key = 'a';
+          break;
+        case 'd':
+          key = 'd';
+          break;
+        case 'f':
+          key = 'f';
+          break;
+        case 'q':
+          key = 'q';
+          break;
+        case 'e':
+          key = 'e';
+          break;
+      }
+
+      if (key) {
+        fetch('/control', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ key: key })
+        });
+      }
+    });
   });
   </script>
 </div>

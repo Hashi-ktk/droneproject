@@ -14,15 +14,16 @@ me = None
 # Initialize Tello
 def init_tello():
     global me
-    me = Tello()
-    me.connect()
-    me.streamoff()  # Make sure to turn off the stream before initializing
-    me.streamon()
+    if me is None:
+        me = Tello()
+        me.connect()
+        me.streamoff()  # Make sure to turn off the stream before initializing
+        me.streamon()
 
 @keypad_control.route('/keypad_video_feed')
 def keypad_video_feed():
     global me
-    me = init_tello()  # Initialize Tello drone
+    init_tello()  # Initialize Tello drone
 
     def getKeyboardInput():
         lr, fb, ud, yv = 0, 0, 0, 0
@@ -64,6 +65,41 @@ def keypad_video_feed():
 
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@keypad_control.route('/control', methods=['POST'])
+def control():
+    data = request.json
+    key = data.get('key')
+    speed = 50
+    lr, fb, ud, yv = 0, 0, 0, 0
+    
+    if key == 'LEFT':
+        lr = -speed
+    elif key == 'RIGHT':
+        lr = speed
+    elif key == 'UP':
+        fb = speed
+    elif key == 'DOWN':
+        fb = -speed
+    elif key == 'w':
+        ud = speed
+    elif key == 's':
+        ud = -speed
+    elif key == 'a':
+        yv = -speed
+    elif key == 'd':
+        yv = speed
+    elif key == 'f':
+        me.flip_right()
+    elif key == 'q':
+        me.land()
+        sleep(3)
+    elif key == 'e':
+        me.takeoff()
+    
+    me.send_rc_control(lr, fb, ud, yv)
+    
+    return '', 204
+
 @keypad_control.route('/connect_to_keypad')
 def connect_to_keypad():
     return render_template('keypad.html')
@@ -71,7 +107,7 @@ def connect_to_keypad():
 @keypad_control.route('/capture_image')
 def capture_image():
     global me
-    user= current_user.name
+    user = current_user.name
     img = me.get_frame_read().frame
     user_dir = os.path.join('Images', user)
     os.makedirs(user_dir, exist_ok=True)
