@@ -1,5 +1,4 @@
 import cv2
-import torch
 from djitellopy import Tello
 from flask import Blueprint, render_template, Response, request
 from flask_login import login_required, current_user
@@ -14,7 +13,8 @@ alarm_sound = pygame.mixer.Sound("Alarms/fire_alarm.mp3")
 
 fire_detecting = Blueprint('fire_detecting', __name__)
 
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='Resources/yolov5s_best.pt')
+# Load the cascade classifier for fire detection
+fire_cascade = cv2.CascadeClassifier('Resources/fire_detection_cascade_model.xml')
 
 me = None
 stop_tracking = False
@@ -45,18 +45,17 @@ def fire_detecting_video_feed():
                 continue
 
             frame = imutils.resize(frame, width=500)
-            rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-            results = model(rgb_frame)
+            # Convert frame to grayscale for cascade classifier
+            gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+            # Detect fire using cascade classifier
+            fires = fire_cascade.detectMultiScale(gray_frame, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
 
             fire_detected = False
-            for det in results.xyxy[0]:
-                xmin, ymin, xmax, ymax, conf, cls = det
-                label = f'{model.names[int(cls)]} {conf:.2f}'
-                cv2.rectangle(frame, (int(xmin), int(ymin)), (int(xmax), int(ymax)), (0, 255, 0), 2)
-                cv2.putText(frame, label, (int(xmin), int(ymin) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-                if model.names[int(cls)] == "fire":
-                    fire_detected = True
+            for (x, y, w, h) in fires:
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                fire_detected = True
 
             if fire_detected:
                 if not alarm_playing:

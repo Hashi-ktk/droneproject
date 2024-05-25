@@ -33,7 +33,7 @@ def create_app():
     from handgesture_control import handgesture_control
     from keypad_control import keypad_control
     from gun_detecting import gun_detecting
-    # from fire_detecting import fire_detecting
+    from fire_detecting import fire_detecting
 
     # Registering Blueprints with the Flask app
     app.register_blueprint(auth_blueprint)
@@ -45,6 +45,6 @@ def create_app():
     app.register_blueprint(handgesture_control)
     app.register_blueprint(keypad_control)
     app.register_blueprint(gun_detecting)
-    # app.register_blueprint(fire_detecting)
+    app.register_blueprint(fire_detecting)
 
     return app
