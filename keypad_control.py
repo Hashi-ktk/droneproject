@@ -5,6 +5,7 @@ import KeyPressModule as kp
 from time import sleep
 import cv2
 import os
+import time
 
 keypad_control = Blueprint('keypad_control', __name__)
 
@@ -25,38 +26,8 @@ def keypad_video_feed():
     global me
     init_tello()  # Initialize Tello drone
 
-    def getKeyboardInput():
-        lr, fb, ud, yv = 0, 0, 0, 0
-        speed = 50
-        if kp.getKey("LEFT"):
-            lr = -speed
-        elif kp.getKey("RIGHT"):
-            lr = speed
-        if kp.getKey("UP"):
-            fb = speed
-        elif kp.getKey("DOWN"):
-            fb = -speed
-        if kp.getKey("w"):
-            ud = speed
-        elif kp.getKey("s"):
-            ud = -speed
-        if kp.getKey("a"):
-            yv = -speed
-        elif kp.getKey("d"):
-            yv = speed
-        if kp.getKey("f"):
-            me.flip_right()
-        if kp.getKey("q"):
-            me.land()
-            sleep(3)
-        if kp.getKey("e"):
-            me.takeoff()
-        return [lr, fb, ud, yv]
-
     def generate_frames():
         while True:
-            vals = getKeyboardInput()
-            me.send_rc_control(vals[0], vals[1], vals[2], vals[3])
             frame = me.get_frame_read().frame
             ret, jpeg = cv2.imencode('.jpg', frame)
             frame = jpeg.tobytes()
@@ -95,7 +66,9 @@ def control():
         sleep(3)
     elif key == 'e':
         me.takeoff()
-    
+    elif key == 'i':
+        capture_image()
+
     me.send_rc_control(lr, fb, ud, yv)
     
     return '', 204
@@ -130,6 +103,7 @@ def start_recording():
     while True:
         video_path = os.path.join(user_dir, f'video{i}.mp4')
         if not os.path.exists(video_path):
+            global out
             fourcc = cv2.VideoWriter_fourcc(*'mp4v')
             out = cv2.VideoWriter(video_path, fourcc, 30.0, (640, 480))
             break
@@ -143,3 +117,11 @@ def stop_recording():
         out.release()
         return "Recording stopped and saved"
     return "No active recording to stop"
+
+@keypad_control.route('/stop_keypad_control')
+def stop_keypad_control():
+    global me
+    me.streamoff()
+    me.end()
+    me = None
+    return render_template('profile.html')

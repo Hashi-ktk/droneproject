@@ -14,6 +14,7 @@
       <li>Press 'F' to perform a flip.</li>
       <li>Press 'Q' to land (Hold for 3 seconds).</li>
       <li>Press 'E' to take off.</li>
+      <li>Press 'I' to capture an image.</li>
     </ul>
   </div>
   <img id="droneVideo" src="{{ url_for('keypad_control.keypad_video_feed') }}" alt="Drone Video">
@@ -22,6 +23,7 @@
     <button id="captureImageBtn" class="button is-primary fs-3 mx-2">Capture Image</button>
     <button id="startRecordingBtn" class="button is-success fs-3 mx-2">Start Recording</button>
     <button id="stopRecordingBtn" class="button is-warning fs-3 mx-2">Stop Recording</button>
+    <button id="stopTrackingBtn" class="button is-danger fs-3 me-2">Stop Keypad Control</button>
   </div>
 
   <script>
@@ -61,6 +63,17 @@
         .catch(error => console.error('Error:', error));
     });
 
+    stopTrackingBtn.addEventListener("click", function() {
+      fetch("{{ url_for('keypad_control.stop_keypad_control') }}")
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          droneVideo.src = "";
+          alert('KeyPad Control stopped.');
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
     document.addEventListener('keydown', function(event) {
       let key;
       switch(event.key) {
@@ -96,6 +109,35 @@
           break;
         case 'e':
           key = 'e';
+          break;
+        case 'i':
+          key = 'i';
+          break;
+      }
+
+      if (key) {
+        fetch('/control', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ key: key })
+        });
+      }
+    });
+
+    document.addEventListener('keyup', function(event) {
+      let key;
+      switch(event.key) {
+        case 'ArrowLeft':
+        case 'ArrowRight':
+        case 'ArrowUp':
+        case 'ArrowDown':
+        case 'w':
+        case 's':
+        case 'a':
+        case 'd':
+          key = 'stop';
           break;
       }
 
