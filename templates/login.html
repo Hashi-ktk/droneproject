@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="column is-4 is-offset-4">
-    <h3 class="mt-5">Login</h3>
+    <h3 class="text2 mt-5">Login</h3>
     <div class="box">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -11,23 +11,35 @@
         </div>
         {% endif %}
         {% endwith %}
-        <form class="mt-5" method="POST" action="/login">
 
-            <div class="mb-3 col-sm-12 col-md-6">
-              <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Your Email" autofocus="">
-              <div id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="mb-3 col-sm-12 col-md-6">
-              <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" type="password" name="password" placeholder="Your Password">
-            </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" name="remember" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Remember Me</label>
-            </div>
-            <button type="submit" class="btn btn-danger">Login</button>
-          </form>
+        <div class="container">
+          <div class="row">
+          <div class="col-6">
+            <img src="{{ url_for('static', filename='images/drone.png') }}" class="w-75 mt-5 pt-3 mx-4 rounded zoom" alt="Drone Image">
+          </div>
+          <div class="col-6">
+            <form class="mt-5" method="POST" action="/login">
+
+              <div class="mb-3 col-sm-12 col-md-6">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control zoom" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Your Email" autofocus="">
+                <div id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.</div>
+              </div>
+              <div class="mb-3 col-sm-12 col-md-6">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control zoom" id="exampleInputPassword1" type="password" name="password" placeholder="Your Password">
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" name="remember" class="form-check-input zoom" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+              </div>
+              <button type="submit" class="btn btn-danger zoom px-5">Login</button>
+            </form>
+          </div>
+          
+        </div>
+      </div>  
+        
     </div>
 </div>
 {% endblock %}

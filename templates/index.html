@@ -1,12 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="mt-5 text-center text-white">
-  FUAVS idk is say kiya banta hai
-</h1>
-<h2 class="text-center">
-  Emaan ki app hai IDK about it
-</h2>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="home-div col-6">
+      <img src="{{ url_for('static', filename='images/drone3.jpeg') }}" class="w-75 mt-5 mx-4 rounded" alt="Drone Image">
+    </div>
+    
+    <div class="col-6">
+      <h1 class="text2 mt-5 text-center text-white">
+        Welcome to Drone Web App
+      </h1>
+    </div>
+  </div>
+  
+</div>
+
+
 
 {% endblock %}
 

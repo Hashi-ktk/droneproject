@@ -2,24 +2,143 @@
 
 {% block content %}
 <div class="container back-image"> 
-  <h1 class="mt-5 text-danger text-center">
+  <h1 class="text mt-5 text-white text-center">
     Welcome, {{ name }}!
   </h1>
-  <div class="d-flex justify-content-center">
-    <a href="{{ url_for('face_tracking.connect_to_facetracker') }}" class="btn btn-primary fs-3 mx-2">Start Face Tracking</a>
-    <a href="{{ url_for('body_tracking.connect_to_bodytracker') }}" class="btn btn-primary fs-3 mx-2">Start Body Tracking</a>
-    <a href="{{ url_for('gun_detecting.connect_to_gundetecter') }}" class="btn btn-primary fs-3 mx-2">Gun Detection</a>
-    <a href="{{ url_for('fire_detecting.connect_to_fire_detecting') }}" class="btn btn-primary fs-3 mx-2">Fire Detection</a>
-    <a href="{{ url_for('handgesture_control.connect_to_handgesture') }}" class="btn btn-primary fs-3 mx-2">Hand Gesture Control</a>
-    <a href="{{ url_for('handgestures_control.connect_to_handgestures') }}" class="btn btn-primary fs-3 mx-2">Hand Gesture1 Control</a>
-    <a href="{{ url_for('keypad_control.connect_to_keypad') }}" class="btn btn-primary fs-3 mx-2">Key Pad Control</a>
 
+  <div class="container mt-5">
+    <div class="row">
+      <div class="home-div col-6">
+        <img src="{{ url_for('static', filename='images/track-face.jpg') }}" class="w-75 mt-5 mx-4 rounded zoom" alt="Drone Image">
+      </div>
+      
+      <div class="col-6">
+        <h4 class="mt-5 text-center text-white">
+          Face Tracking App
+        </h4>
+        <p>Face tracking technology involves detecting and tracking human faces in images or video streams. When it comes to detecting small text details on faces, such as tattoos or facial expressions, there are several considerations:</p>
+    <a href="{{ url_for('face_tracking.connect_to_facetracker') }}" class="btn btn-success fs-5 py-2 px-3 zoom">Start Face Tracking</a>
+
+      </div>
+    </div>
+    
   </div>
-  <div class="media-section mt-5">
+
+  <div class="container mt-5">
+    <div class="row"> 
+      <div class="col-6">
+        <h4 class="mt-5 text-center text-white">
+          Body Tracking 
+        </h4>
+        <p>Tracking small text details on the body involves similar considerations to face tracking, but with some specific nuances:</p>
+          <a href="{{ url_for('body_tracking.connect_to_bodytracker') }}" class="btn btn-success fs-5 py-2 px-3 zoom">Start Body Tracking</a>
+      </div>
+      <div class="home-div col-6">
+        <img src="{{ url_for('static', filename='images/body-track.webp') }}" class="w-75 mt-5 mx-4 rounded zoom" alt="Drone Image">
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="container mt-5">
+    <div class="row"> 
+      <div class="home-div col-6">
+        <img src="{{ url_for('static', filename='images/gun-detection.jpg') }}" class="w-75 mt-5 mx-4 rounded zoom" alt="Drone Image">
+      </div>
+      <div class="col-6">
+        <h4 class="mt-5 text-center text-white">
+          Gun Detection
+        </h4>
+        <p>Gun detection refers to the process of identifying firearms or weapons within images or video streams using computer vision and machine learning techniques. Here's a description of gun detection:</p>
+          <a href="{{ url_for('gun_detecting.connect_to_gundetecter') }}" class="btn btn-danger fs-5 px-3 py-2 zoom">Gun Detection</a>
+        </div>
+      
+    </div>
+  </div>
+
+    <div class="container mt-5">
+      <div class="row"> 
+        <div class="col-6">
+          <h4 class="mt-5 text-center text-white">
+            Fire Detection
+          </h4>
+          <p>Tracking small text details on the body involves similar considerations to face tracking, but with some specific nuances:</p>
+              <a href="{{ url_for('fire_detecting.connect_to_fire_detecting') }}" class="btn btn-danger fs-5 py-2 px-3 zoom">Fire Detection</a>
+          </div>
+        <div class="home-div col-6">
+          <img src="{{ url_for('static', filename='images/fire-detect.jpg') }}" class="w-75 mt-5 mx-4 rounded zoom" alt="Drone Image">
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="container mt-5">
+      <div class="row"> 
+       
+        <div class="col-6">
+          <h4 class="mt-5 text-center text-white">
+            Hand Gesture Control
+          </h4>
+          <p>Hand gesture control refers to the technology that allows users to interact with and control devices or applications through hand movements and gestures. This technology leverages computer vision, machine learning, and sensor-based systems to interpret and respond to specific hand gestures, providing a more intuitive and natural way of interaction. Here’s a detailed description of hand gesture control:</p>
+            <a href="{{ url_for('handgesture_control.connect_to_handgesture') }}" class="btn btn-success fs-5 py-2 px-3 zoom">Hand Gesture Control</a>
+          </div>
+          <div class="home-div col-6">
+            <img src="{{ url_for('static', filename='images/hand-gesture.jpg') }}" class="w-75 mt-5 mx-4 rounded zoom" alt="Drone Image">
+          </div>  
+        
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <div class="row"> 
+        <div class="home-div col-6">
+          <img src="{{ url_for('static', filename='images/hand-gesture.jpg') }}" class="w-75 mt-5 mx-4 rounded zoom" alt="Drone Image">
+        </div>
+        <div class="col-6">
+          <h4 class="mt-5 text-center text-white">
+            Hand Gesture 1 Control
+          </h4>
+          <p>Hand gesture control refers to the technology that allows users to interact with and control devices or applications through hand movements and gestures. This technology leverages computer vision, machine learning, and sensor-based systems to interpret and respond to specific hand gestures, providing a more intuitive and natural way of interaction. Here’s a detailed description of hand gesture control:</p>
+    <a href="{{ url_for('handgestures_control.connect_to_handgestures') }}" class="btn btn-success fs-5 py-2 px-3 zoom">Hand Gesture1 Control</a>
+          
+  </div>
+        
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <div class="row"> 
+       
+        <div class="col-6">
+          <h4 class="mt-5 text-center text-white">
+            Key Pad Control
+          </h4>
+          <p>Hand gesture control refers to the technology that allows users to interact with and control devices or applications through hand movements and gestures. This technology leverages computer vision, machine learning, and sensor-based systems to interpret and respond to specific hand gestures, providing a more intuitive and natural way of interaction. Here’s a detailed description of hand gesture control:</p>
+            <a href="{{ url_for('keypad_control.connect_to_keypad') }}" class="btn btn-success fs-5 py-2 px-3 zoom">Key Pad Control</a>
+          </div>
+          <div class="home-div col-6">
+            <img src="{{ url_for('static', filename='images/key-pad.jpg') }}" class="w-75 mt-5 mx-4 rounded zoom" alt="Drone Image">
+          </div>  
+        
+      </div>
+    </div>
+
+    
+  <!-- <div class="d-flex justify-content-center mt-5">
+    <a href="{{ url_for('face_tracking.connect_to_facetracker') }}" class="btn btn-outline-danger fs-3 mx-2 p-2 zoom">Start Face Tracking</a>
+    <a href="{{ url_for('body_tracking.connect_to_bodytracker') }}" class="btn btn-outline-success fs-3 mx-2 zoom">Start Body Tracking</a>
+    <a href="{{ url_for('gun_detecting.connect_to_gundetecter') }}" class="btn btn-outline-danger fs-3 mx-2 zoom">Gun Detection</a>
+    <a href="{{ url_for('fire_detecting.connect_to_fire_detecting') }}" class="btn btn-outline-success fs-3 mx-2 zoom">Fire Detection</a>
+    <a href="{{ url_for('handgesture_control.connect_to_handgesture') }}" class="btn btn-outline-danger fs-3 mx-2 zoom">Hand Gesture Control</a>
+    <a href="{{ url_for('handgestures_control.connect_to_handgestures') }}" class="btn btn-outline-success fs-3 mx-2 zoom">Hand Gesture1 Control</a>
+    <a href="{{ url_for('keypad_control.connect_to_keypad') }}" class="btn btn-outline-danger fs-3 mx-2 zoom">Key Pad Control</a>
+
+  </div> -->
+  <div class="media-section my-5">
     <h2 class="text-center">Your Media</h2>
     <div class="d-flex justify-content-center">
-      <a href="{{ url_for('main.view_images') }}" class="btn btn-success fs-3 mx-2">View Images</a>
-      <a href="{{ url_for('main.view_videos') }}" class="btn btn-success fs-3 mx-2">View Videos</a>
+      <a href="{{ url_for('main.view_images') }}" class="btn btn-outline-success fs-3 mx-2">View Images</a>
+      <a href="{{ url_for('main.view_videos') }}" class="btn btn-outline-success fs-3 mx-2">View Videos</a>
     </div>
   </div>
 </div>

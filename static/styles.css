@@ -1,6 +1,6 @@
 body {
 
-    background-color: rgb(228, 228, 228);
+    background-color: rgb(41, 6, 36);
     color: white;
 }
 
@@ -8,11 +8,121 @@ body {
     background-color:black;
 }
 
+.navbar{
+    background-color: rgb(41, 6, 36);
+
+}
+
 body {
     /* max-height: 80px; */
     /* margin: 80 auto; */
     /* padding: 20px; */
-    background-image: url('../static/images/drone3.jpeg');
-    background-size: cover; /* Adjust the size of the background image */
+    /* background-image: url('../static/images/background.png'); */
+    /* background-size: cover; Adjust the size of the background image */
     /* background-position: left;  */
 }
+
+.home-div{
+    /* background-image: url('../static/images/drone.png');
+    background-size: cover; */
+
+}
+
+
+.container{
+	width: 100%;
+}
+
+.text{
+	font-family: 'arial black';
+	font-size: 60px;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	margin-left: 50%;
+	transform: translateX(-200%);
+	opacity: 0;
+	animation: slide-in-anim 1.5s ease-out forwards;
+}
+
+.text2{
+	font-family: 'arial black';
+	font-size: 50px;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	margin-left: 30%;
+	transform: translateX(200%);
+	opacity: 0;
+	animation: slide-in-anim 1.5s ease-out forwards;
+}
+
+.text3{
+    transform: scaleY(200%);
+    font-family: 'arial black';
+	font-size: 60px;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	margin-left: 50%;
+	opacity: 0;
+	animation: slide-in-anim 1.5s ease-out forwards;
+}
+
+@keyframes slide-in-anim {
+	20% {
+		opacity: 0;
+	}
+	60% {
+		transform: translateX(-45%);
+	}
+	75% {
+		transform: translateX(-52%);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(-50%);
+	}
+}
+
+.zoom:hover {
+    transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+
+/* Smooth transition for navbar links */
+.nav-link {
+    transition: color 0.3s ease, transform 0.3s ease;
+    color: white;
+}
+
+.nav-link:hover {
+    color: #0056b3; /* Change to your preferred hover color */
+    transform: scale(1.1);
+}
+
+.nav-link:active .a{
+    color: #0056b3; /* Change to your preferred hover color */
+
+}
+
+.nav-item a.active {
+    background-color: #4CAF50;
+  }
+
+/* Navbar background color transition */
+.navbar {
+    transition: background-color 0.5s ease;
+}
+
+.navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.9); /* Adjust as needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar-toggler transition */
+.navbar-toggler {
+    transition: transform 0.3s ease;
+}
+
+
+

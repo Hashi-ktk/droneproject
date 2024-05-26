@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="mt-5 text-danger text-center">
+<h1 class="mt-5 text-white text-center">
   Drone Video Feed
 </h1>
 <img id="droneVideo" src="{{ url_for('drone_stream.video_feed') }}" alt="Drone Video">
-<button id="faceTrackingBtn" class="button is-primary fs-3 d-flex justify-content-center">Start Face Tracking</button>
-<button id="stopTrackingBtn" class="button is-danger fs-3 d-flex justify-content-center mt-3">Stop Face Tracking</button>
+<button id="faceTrackingBtn" class="btn btn-success fs-3 d-flex justify-content-center">Start Face Tracking</button>
+<button id="stopTrackingBtn" class="btn btn-dannger fs-3 d-flex justify-content-center mt-3">Stop Face Tracking</button>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
