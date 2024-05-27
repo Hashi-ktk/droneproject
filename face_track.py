@@ -125,6 +125,7 @@ def facetracker_video_feed():
                     tello.streamoff()
                     tello.land()
                     tello.end()
+                    tello = None
                     land = False
                 if recording and out is not None:
                     out.release()

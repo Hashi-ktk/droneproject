@@ -170,6 +170,7 @@ def disconnect_to_handgestures():
     global tello
     tello.streamoff()
     tello.end()
+    tello = None
     return render_template('profile.html')
 
 @handgestures_control.route('/capture_image')

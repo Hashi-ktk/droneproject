@@ -79,6 +79,7 @@ def fire_detecting_video_feed():
             alarm_sound.stop()
         me.land()
         me.end()
+        me = None
 
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 

@@ -22,6 +22,7 @@ fly = False
 stop_tracking = False
 recording = False
 out = None
+cap = None
 
 def init_tello():
     global tello
@@ -35,20 +36,29 @@ def init_tello():
         tello.streamoff()
         tello.streamon()
 
+def init_laptop_camera():
+    global cap
+    if cap is None:
+        cap = cv2.VideoCapture(0)
+
 def hand_detection():
-    global gesture, stop_tracking, recording, out
+    global gesture, stop_tracking, recording, out, cap
 
     while True:
         if stop_tracking:
             tello.streamoff()
             tello.end()
+            cap.release()
             if recording and out is not None:
                 out.release()
                 recording = False
             break
 
-        # Read the frame from Tello
-        frame = tello.get_frame_read().frame
+        # Read the frame from the laptop camera
+        ret, frame = cap.read()
+        if not ret:
+            continue
+
         frame = cv2.flip(frame, 1)
         result = hands.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
         frame_height = frame.shape[0]
@@ -110,6 +120,14 @@ def hand_detection():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
+def drone_video_feed():
+    while True:
+        frame = tello.get_frame_read().frame
+        ret, jpeg = cv2.imencode('.jpg', frame)
+        frame = jpeg.tobytes()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
 def control_drone():
     global gesture, stop_tracking
 
@@ -145,6 +163,7 @@ def handgesture_video_feed():
     stop_tracking = False
 
     init_tello()
+    init_laptop_camera()
 
     if not tello.is_flying:
         tello.takeoff()
@@ -154,6 +173,10 @@ def handgesture_video_feed():
     threading.Thread(target=control_drone, daemon=True).start()
 
     return Response(hand_detection(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@handgesture_control.route('/drone_video')
+def drone_video():
+    return Response(drone_video_feed(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @handgesture_control.route('/stop_handgesture')
 def stop_handgesture():
@@ -167,9 +190,11 @@ def connect_to_handgesture():
 
 @handgesture_control.route('/disconnect_to_handgesture')
 def disconnect_to_handgesture():
-    global tello
+    global tello, cap
     tello.streamoff()
     tello.end()
+    if cap is not None:
+        cap.release()
     return render_template('profile.html')
 
 @handgesture_control.route('/capture_image')
