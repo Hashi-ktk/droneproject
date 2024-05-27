@@ -1,18 +1,73 @@
 body {
-
-    background-color: rgb(228, 228, 228);
-    color: white;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden;
 }
 
-.navdiv{
-    background-color:black;
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 10px; /* Adjust spacing between icon and text */
 }
 
-body {
-    /* max-height: 80px; */
-    /* margin: 80 auto; */
-    /* padding: 20px; */
-    background-image: url('../static/images/drone3.jpeg');
-    background-size: cover; /* Adjust the size of the background image */
-    /* background-position: left;  */
+.navbar-icon {
+    margin-right: 10px;
+}
+
+.icon-img {
+    width: 40px;
+    height: 40px;
+}
+
+.hero-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-side {
+    max-width: 50%;
+}
+
+.right-side {
+    max-width: 50%;
+    text-align: right;
+}
+
+#drone-animation {
+    width: 80%;
+    max-width: 500px;
+    margin: auto;
+}
+
+h1, h2 {
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
 }
