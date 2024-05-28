@@ -62,15 +62,19 @@
     </nav>
 
     <div class="hero-body d-flex">
+        <div class="d-flex justify-content-center align-items-center">
+            {% block content %}
+            {% endblock %}
+          </div>
         <div class="container-fluid d-flex align-items-center justify-content-between">
             <div class="left-side w-50">
-                {% block content %}
+                {% block left_side %}
                 {% endblock %}
             </div>
             <div class="right-side w-50">
                 {% block right_side %}
                 {% endblock %}
-            </div>
+            </div>            
         </div>
     </div>
 </body>
