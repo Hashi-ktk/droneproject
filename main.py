@@ -8,6 +8,14 @@ main = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
+@main.route('/team')
+def team():
+    return render_template('team.html')
+
+@main.route('/how_to_use')
+def how_to_use():
+    return render_template('tutorial.html')
+
 @main.route('/profile')
 @login_required
 def profile():

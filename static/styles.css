@@ -8,8 +8,20 @@ body {
     background-color: #1c1c1c;
 }
 
-.navbar-brand, .nav-link {
+.navbar-brand {
     color: #ffffff !important;
+    font-weight: bold;
+}
+
+.nav-link {
+    color: #ffffff !important;
+    font-size: 14px;
+    padding: 5px 10px; /* Added padding for spacing */
+    transition: color 0.3s; /* Smooth color transition on hover */
+}
+
+.nav-link:hover {
+    color: #f0f0f0 !important; /* Change color on hover */
 }
 
 .icon-img {
@@ -24,7 +36,8 @@ body {
     justify-content: center;
 }
 
-.left-side, .right-side {
+.left-side,
+.right-side {
     padding: 20px;
 }
 
@@ -54,9 +67,11 @@ body {
     border-color: #004085;
 }
 
-.form-check-label, .form-text {
+.form-check-label,
+.form-text {
     color: #ffffff;
 }
+
 
 /* Additional CSS for profile.html */
 /* styles.css */
