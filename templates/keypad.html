@@ -1,7 +1,5 @@
-{% extends "base.html" %}
-
-{% block content %}
-<div class="container back-image"> 
+{% extends "base.html" %} {% block content %}
+<div class="container back-image profile-width">
   <h1 class="mt-5 text-danger text-center">
     Drone Video Feed with Keypad Control
   </h1>
@@ -17,141 +15,153 @@
       <li>Press 'I' to capture an image.</li>
     </ul>
   </div>
-  <img id="droneVideo" src="{{ url_for('keypad_control.keypad_video_feed') }}" alt="Drone Video">
-  
+  <img
+    id="droneVideo"
+    src="{{ url_for('keypad_control.keypad_video_feed') }}"
+    alt="Drone Video"
+  />
+
   <div class="button-group d-flex justify-content-center mt-3">
-    <button id="captureImageBtn" class="button is-primary fs-3 mx-2">Capture Image</button>
-    <button id="startRecordingBtn" class="button is-success fs-3 mx-2">Start Recording</button>
-    <button id="stopRecordingBtn" class="button is-warning fs-3 mx-2">Stop Recording</button>
-    <button id="stopTrackingBtn" class="button is-danger fs-3 me-2">Stop Keypad Control</button>
+    <button id="captureImageBtn" class="button is-primary fs-3 mx-2">
+      Capture Image
+    </button>
+    <button id="startRecordingBtn" class="button is-success fs-3 mx-2">
+      Start Recording
+    </button>
+    <button id="stopRecordingBtn" class="button is-warning fs-3 mx-2">
+      Stop Recording
+    </button>
+    <button id="stopTrackingBtn" class="button is-danger fs-3 me-2">
+      Stop Keypad Control
+    </button>
   </div>
 
   <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var captureImageBtn = document.getElementById("captureImageBtn");
-    var startRecordingBtn = document.getElementById("startRecordingBtn");
-    var stopRecordingBtn = document.getElementById("stopRecordingBtn");
-    var droneVideo = document.getElementById("droneVideo");
+    document.addEventListener("DOMContentLoaded", function () {
+      var captureImageBtn = document.getElementById("captureImageBtn");
+      var startRecordingBtn = document.getElementById("startRecordingBtn");
+      var stopRecordingBtn = document.getElementById("stopRecordingBtn");
+      var droneVideo = document.getElementById("droneVideo");
 
-    captureImageBtn.addEventListener("click", function() {
-      fetch("{{ url_for('keypad_control.capture_image') }}")
-        .then(response => response.text())
-        .then(data => {
-          console.log(data);
-          alert('Image captured: ' + data);
-        })
-        .catch(error => console.error('Error:', error));
+      captureImageBtn.addEventListener("click", function () {
+        fetch("{{ url_for('keypad_control.capture_image') }}")
+          .then((response) => response.text())
+          .then((data) => {
+            console.log(data);
+            alert("Image captured: " + data);
+          })
+          .catch((error) => console.error("Error:", error));
+      });
+
+      startRecordingBtn.addEventListener("click", function () {
+        fetch("{{ url_for('keypad_control.start_recording') }}")
+          .then((response) => response.text())
+          .then((data) => {
+            console.log(data);
+            alert(data);
+          })
+          .catch((error) => console.error("Error:", error));
+      });
+
+      stopRecordingBtn.addEventListener("click", function () {
+        fetch("{{ url_for('keypad_control.stop_recording') }}")
+          .then((response) => response.text())
+          .then((data) => {
+            console.log(data);
+            alert(data);
+          })
+          .catch((error) => console.error("Error:", error));
+      });
+
+      stopTrackingBtn.addEventListener("click", function () {
+        fetch("{{ url_for('keypad_control.stop_keypad_control') }}")
+          .then((response) => response.text())
+          .then((data) => {
+            console.log(data);
+            droneVideo.src = "";
+            alert("KeyPad Control stopped.");
+          })
+          .catch((error) => console.error("Error:", error));
+      });
+
+      document.addEventListener("keydown", function (event) {
+        let key;
+        switch (event.key) {
+          case "ArrowLeft":
+            key = "LEFT";
+            break;
+          case "ArrowRight":
+            key = "RIGHT";
+            break;
+          case "ArrowUp":
+            key = "UP";
+            break;
+          case "ArrowDown":
+            key = "DOWN";
+            break;
+          case "w":
+            key = "w";
+            break;
+          case "s":
+            key = "s";
+            break;
+          case "a":
+            key = "a";
+            break;
+          case "d":
+            key = "d";
+            break;
+          case "f":
+            key = "f";
+            break;
+          case "q":
+            key = "q";
+            break;
+          case "e":
+            key = "e";
+            break;
+          case "i":
+            key = "i";
+            break;
+        }
+
+        if (key) {
+          fetch("/control", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ key: key }),
+          });
+        }
+      });
+
+      document.addEventListener("keyup", function (event) {
+        let key;
+        switch (event.key) {
+          case "ArrowLeft":
+          case "ArrowRight":
+          case "ArrowUp":
+          case "ArrowDown":
+          case "w":
+          case "s":
+          case "a":
+          case "d":
+            key = "stop";
+            break;
+        }
+
+        if (key) {
+          fetch("/control", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ key: key }),
+          });
+        }
+      });
     });
-
-    startRecordingBtn.addEventListener("click", function() {
-      fetch("{{ url_for('keypad_control.start_recording') }}")
-        .then(response => response.text())
-        .then(data => {
-          console.log(data);
-          alert(data);
-        })
-        .catch(error => console.error('Error:', error));
-    });
-
-    stopRecordingBtn.addEventListener("click", function() {
-      fetch("{{ url_for('keypad_control.stop_recording') }}")
-        .then(response => response.text())
-        .then(data => {
-          console.log(data);
-          alert(data);
-        })
-        .catch(error => console.error('Error:', error));
-    });
-
-    stopTrackingBtn.addEventListener("click", function() {
-      fetch("{{ url_for('keypad_control.stop_keypad_control') }}")
-        .then(response => response.text())
-        .then(data => {
-          console.log(data);
-          droneVideo.src = "";
-          alert('KeyPad Control stopped.');
-        })
-        .catch(error => console.error('Error:', error));
-    });
-
-    document.addEventListener('keydown', function(event) {
-      let key;
-      switch(event.key) {
-        case 'ArrowLeft':
-          key = 'LEFT';
-          break;
-        case 'ArrowRight':
-          key = 'RIGHT';
-          break;
-        case 'ArrowUp':
-          key = 'UP';
-          break;
-        case 'ArrowDown':
-          key = 'DOWN';
-          break;
-        case 'w':
-          key = 'w';
-          break;
-        case 's':
-          key = 's';
-          break;
-        case 'a':
-          key = 'a';
-          break;
-        case 'd':
-          key = 'd';
-          break;
-        case 'f':
-          key = 'f';
-          break;
-        case 'q':
-          key = 'q';
-          break;
-        case 'e':
-          key = 'e';
-          break;
-        case 'i':
-          key = 'i';
-          break;
-      }
-
-      if (key) {
-        fetch('/control', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ key: key })
-        });
-      }
-    });
-
-    document.addEventListener('keyup', function(event) {
-      let key;
-      switch(event.key) {
-        case 'ArrowLeft':
-        case 'ArrowRight':
-        case 'ArrowUp':
-        case 'ArrowDown':
-        case 'w':
-        case 's':
-        case 'a':
-        case 'd':
-          key = 'stop';
-          break;
-      }
-
-      if (key) {
-        fetch('/control', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ key: key })
-        });
-      }
-    });
-  });
   </script>
 </div>
 {% endblock %}
