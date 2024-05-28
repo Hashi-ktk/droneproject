@@ -1,77 +1,106 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FUAVS</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.4/lottie.min.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-icon" href="{{ url_for('main.index') }}">
-                <img src="{{ url_for('static', filename='images/droneIcon.png') }}" alt="Drone Icon" class="icon-img">
-            </a>
-            <a class="navbar-brand text-white" href="{{ url_for('main.index') }}">FUAVS</a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div
-                class="collapse navbar-collapse justify-content-end"
-                id="navbarSupportedContent"
-            >
-                <ul class="navbar-nav me-2 mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a href="{{ url_for('main.index') }}"
-                            class="nav-link active fs-4 fw-bold text-white"
-                            aria-current="page"
-                            href="#"
-                            >Home</a
-                        >
-                    </li>
-                    {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link fs-4 fw-bold text-white" href="{{ url_for('main.profile') }}">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fs-4 fw-bold text-white" href="{{ url_for('auth.logout') }}">Logout</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link fs-4 fw-bold text-white" href="{{ url_for('auth.login') }}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fs-4 fw-bold text-white" href="{{ url_for('auth.signup') }}">Signup</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
+      <div class="container-fluid">
+        <a class="navbar-icon" href="{{ url_for('main.index') }}">
+          <img
+            src="{{ url_for('static', filename='images/droneIcon.png') }}"
+            alt="Drone Icon"
+            class="icon-img"
+          />
+        </a>
+        <a class="navbar-brand text-white" href="{{ url_for('main.index') }}"
+          >FUAVS</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarSupportedContent"
+        >
+          <ul class="navbar-nav me-2 mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                href="{{ url_for('main.index') }}"
+                class="nav-link active fs-4 fw-bold text-white"
+                aria-current="page"
+                href="#"
+                >Home</a
+              >
+            </li>
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a
+                class="nav-link fs-4 fw-bold text-white"
+                href="{{ url_for('main.profile') }}"
+                >Profile</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link fs-4 fw-bold text-white"
+                href="{{ url_for('auth.logout') }}"
+                >Logout</a
+              >
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a
+                class="nav-link fs-4 fw-bold text-white"
+                href="{{ url_for('auth.login') }}"
+                >Login</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link fs-4 fw-bold text-white"
+                href="{{ url_for('auth.signup') }}"
+                >Signup</a
+              >
+            </li>
+            {% endif %}
+          </ul>
         </div>
+      </div>
     </nav>
 
     <div class="hero-body d-flex">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
-            <div class="left-side text-left w-50">
-                {% block content %}
-                {% endblock %}
-            </div>
-            <div class="right-side text-right w-50">
-                {% block right_side %}
-                {% endblock %}
-            </div>
+      <div
+        class="container-fluid d-flex align-items-center justify-content-between"
+      >
+        <div class="left-side text-left w-50">
+          {% block content %} {% endblock %}
         </div>
+        <div class="right-side text-right w-50">
+          {% block right_side %} {% endblock %}
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

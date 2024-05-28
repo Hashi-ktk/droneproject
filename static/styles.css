@@ -1,81 +1,85 @@
 body {
-    background: linear-gradient(135deg, #000000, #001f3f);
-    color: #fff;
-    font-family: 'Arial', sans-serif;
-    overflow-x: hidden;
+  background: linear-gradient(135deg, #000000, #001f3f);
+  color: #fff;
+  font-family: "Arial", sans-serif;
+  overflow-x: hidden;
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-left: 10px; /* Adjust spacing between icon and text */
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-left: 10px; /* Adjust spacing between icon and text */
 }
 
 .navbar-icon {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .icon-img {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 }
 
 .hero-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80vh;
-    padding-right: 20px; /* Adjust padding from the right */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  padding-right: 20px;
+  padding-left: 20px; /* Adjust padding from the right */
 }
 
 .container-fluid {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .left-side {
-    max-width: 50%;
+  padding-left: 20px;
 }
 
 .right-side {
-    max-width: 50%;
-    text-align: right;
-    padding-right: 20px; /* Add padding to the right side */
+  text-align: left;
+  padding-right: 20px;
 }
 
 #drone-animation {
-    width: 100%;
-    max-width: 800px;
-    margin: auto;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
 }
 
-h1, h2 {
-    margin-bottom: 20px;
+h1,
+h2 {
+  margin-bottom: 20px;
 }
 
 .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+  background-color: #007bff;
+  border-color: #007bff;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
+  background-color: #0056b3;
+  border-color: #004085;
 }
 
 .btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
+  background-color: #6c757d;
+  border-color: #6c757d;
 }
 
 .btn-secondary:hover {
-    background-color: #5a6268;
-    border-color: #545b62;
+  background-color: #5a6268;
+  border-color: #545b62;
 }
 
 .background-image img {
-    max-width: 100%;
-    height: auto;
-    opacity: 0.1; /* Adjust opacity as needed */
+  max-width: 100%;
+  height: auto;
+  opacity: 0.1; /* Adjust opacity as needed */
+}
+.profile-width {
+  width: 200% !important; /* Adjust the width as needed for the profile page */
 }

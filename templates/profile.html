@@ -1,26 +1,97 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
 
-{% block content %}
-<div class="container back-image"> 
-  <h1 class="mt-5 text-danger text-center">
-    Welcome, {{ name }}!
-  </h1>
-  <div class="d-flex justify-content-center">
-    <a href="{{ url_for('face_tracking.connect_to_facetracker') }}" class="btn btn-primary fs-3 mx-2">Start Face Tracking</a>
-    <a href="{{ url_for('body_tracking.connect_to_bodytracker') }}" class="btn btn-primary fs-3 mx-2">Start Body Tracking</a>
-    <a href="{{ url_for('gun_detecting.connect_to_gundetecter') }}" class="btn btn-primary fs-3 mx-2">Gun Detection</a>
-    <a href="{{ url_for('fire_detecting.connect_to_fire_detecting') }}" class="btn btn-primary fs-3 mx-2">Fire Detection</a>
-    <a href="{{ url_for('handgesture_control.connect_to_handgesture') }}" class="btn btn-primary fs-3 mx-2">Hand Gesture Control</a>
-    <a href="{{ url_for('handgestures_control.connect_to_handgestures') }}" class="btn btn-primary fs-3 mx-2">Hand Gesture1 Control</a>
-    <a href="{{ url_for('keypad_control.connect_to_keypad') }}" class="btn btn-primary fs-3 mx-2">Key Pad Control</a>
-
-  </div>
-  <div class="media-section mt-5">
+<div class="container back-image text-center profile-width">
+  <h1 class="mt-5 text-danger text-center">Welcome, {{ name }}!</h1>
+  <div class="media-section mt-5 pb-4">
     <h2 class="text-center">Your Media</h2>
     <div class="d-flex justify-content-center">
-      <a href="{{ url_for('main.view_images') }}" class="btn btn-success fs-3 mx-2">View Images</a>
-      <a href="{{ url_for('main.view_videos') }}" class="btn btn-success fs-3 mx-2">View Videos</a>
+      <a
+        href="{{ url_for('main.view_images') }}"
+        class="btn btn-success fs-3 mx-2"
+        >View Images</a
+      >
+      <a
+        href="{{ url_for('main.view_videos') }}"
+        class="btn btn-success fs-3 mx-2"
+        >View Videos</a
+      >
     </div>
   </div>
+  <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
+      <a
+        href="{{ url_for('face_tracking.connect_to_facetracker') }}"
+        class="btn btn-primary fs-3 mx-2"
+        >Start Face Tracking
+        <img
+          width="48"
+          height="48"
+          src="https://img.icons8.com/fluency-systems-filled/48/circled-right-2.png"
+          alt="circled-right-2"
+        />
+      </a>
+      <a
+        href="{{ url_for('body_tracking.connect_to_bodytracker') }}"
+        class="btn btn-primary fs-3 mx-2"
+        >Start Body Tracking
+        <img
+          width="48"
+          height="48"
+          src="https://img.icons8.com/fluency-systems-filled/48/circled-right-2.png"
+          alt="circled-right-2"
+        />
+      </a>
+      <a
+        href="{{ url_for('gun_detecting.connect_to_gundetecter') }}"
+        class="btn btn-primary fs-3 mx-2"
+        >Gun Detection
+        <img
+          width="48"
+          height="48"
+          src="https://img.icons8.com/fluency-systems-filled/48/circled-right-2.png"
+          alt="circled-right-2"
+      /></a>
+      <a
+        href="{{ url_for('fire_detecting.connect_to_fire_detecting') }}"
+        class="btn btn-primary fs-3 mx-2"
+        >Fire Detection
+        <img
+          width="48"
+          height="48"
+          src="https://img.icons8.com/fluency-systems-filled/48/circled-right-2.png"
+          alt="circled-right-2"
+      /></a>
+      <a
+        href="{{ url_for('handgesture_control.connect_to_handgesture') }}"
+        class="btn btn-primary fs-3 mx-2"
+        >Hand Gesture Control
+        <img
+          width="48"
+          height="48"
+          src="https://img.icons8.com/fluency-systems-filled/48/circled-right-2.png"
+          alt="circled-right-2"
+      /></a>
+      <a
+        href="{{ url_for('handgestures_control.connect_to_handgestures') }}"
+        class="btn btn-primary fs-3 mx-2"
+        >Hand Gesture1 Control
+        <img
+          width="48"
+          height="48"
+          src="https://img.icons8.com/fluency-systems-filled/48/circled-right-2.png"
+          alt="circled-right-2"
+      /></a>
+      <a
+        href="{{ url_for('keypad_control.connect_to_keypad') }}"
+        class="btn btn-primary fs-3 mx-2"
+        >Key Pad Control
+        <img
+          width="48"
+          height="48"
+          src="https://img.icons8.com/fluency-systems-filled/48/circled-right-2.png"
+          alt="circled-right-2"
+      /></a>
+    </div>
+  </div>
+  {% endblock %}
 </div>
-{% endblock %}
