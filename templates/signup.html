@@ -1,38 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="text-center w-100">
-    <img src="{{ url_for('static', filename='images/SignupDrone.png') }}" alt="Signup Drone" class="img-fluid">
+<div class="text-center w-100 position-relative">
+    <img src="{{ url_for('static', filename='images/SignupDrone.png') }}" alt="Signup Drone" class="background-image img-fluid position-absolute top-50 start-50 translate-middle" style="opacity: 1;">
 </div>
 {% endblock %}
 
 {% block right_side %}
-<div class="column is-4 is-offset-4">
-    <h3 class="mt-5">Sign Up</h3>
-    <div class="box">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
+<div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+    <div class="column is-4">
+        <h3 class="mt-5 text-center signup-title">Sign Up</h3>
+        <div class="box">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
+            </div>
+            {% endif %}
+            {% endwith %}
+            <form class="mt-5" method="POST" action="/signup">
+                <div class="mb-4 text-start"> <!-- Increased margin bottom and changed class to text-start -->
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Email" autofocus="">
+                    <div id="emailHelp" class="form-text text-white"> <!-- Changed text-info to text-white for white text color -->
+                        We'll never share your email with anyone else.
+                    </div>
+                </div>
+                <div class="mb-4 text-start"> <!-- Increased margin bottom and changed class to text-start -->
+                    <label for="exampleInputName1" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" name="name" placeholder="Name" autofocus="">
+                </div>
+                <div class="mb-4 text-start"> <!-- Increased margin bottom and changed class to text-start -->
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary float-end">Sign Up</button> <!-- Changed to float-end to move button to the right -->
+                <div class="clearfix"></div> <!-- Added clearfix to clear float -->
+                <div class="mt-3">
+                    <span class="ms-3">Already have an account? <a href="{{ url_for('auth.login') }}">Login Instead.</a></span>
+                    <!-- <a href="{{ url_for('auth.login') }}" class="text-white"> Login Instead.</a> -->
+                </div>
+            </form>
         </div>
-        {% endif %}
-        {% endwith %}
-        <form class="mt-5" method="POST" action="/signup">
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Email" autofocus="">
-                <div id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputName1" class="form-label">Name</label>
-                <input type="text" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" name="name" placeholder="Name" autofocus="">
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-danger">Sign Up</button>
-        </form>
     </div>
 </div>
 {% endblock %}
