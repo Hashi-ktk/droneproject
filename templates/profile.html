@@ -5,7 +5,7 @@
     <div class="text-center">
         <div class="welcome-card mt-5">
             <h1 class="text-danger">Welcome, {{ name }}!</h1>
-            <p>Welcome to our Drone Surveillance App. Explore the modules below.</p>
+            <p>Experience seamless drone control with FUAVS - The ultimate Follow-Me UAV system, designed for effortless operation and unmatched versatility. An innovative drone control application that leverages advanced AI technology to offer seamless and intuitive operation. </p>
         </div>
 
         <div class="media-section mt-5">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Face Tracking</h5>
-                    <p class="card-text description" id="faceTrackingDescription" style="display: none;">Face tracking allows the drone to track human faces. <br>Hover for more info.</p>
+                    <p class="card-text description" id="faceTrackingDescription" style="display: none;">Leverage advanced AI algorithms to detect and track faces, ensuring the drone follows the target smoothly. Ideal for personalized videography and security applications. <br>Hover for more info.</p>
                     <a href="{{ url_for('face_tracking.connect_to_facetracker') }}">
                         <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="faceTrackingIcon" style="display: none;">
                     </a>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Body Tracking</h5>
-                    <p class="card-text description" id="bodyTrackingDescription" style="display: none;">Body tracking allows the drone to track human bodies. <br>Hover for more info.</p>
+                    <p class="card-text description" id="bodyTrackingDescription" style="display: none;">Automatically detect and follow the movements of a person, providing hands-free operation. Perfect for activities like filming, sports, and surveillance. <br>Hover for more info.</p>
                     <a href="{{ url_for('body_tracking.connect_to_bodytracker') }}">
                         <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="bodyTrackingIcon" style="display: none;">
                     </a>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Hand Gesture Control</h5>
-                    <p class="card-text description" id="handGestureDescription" style="display: none;">Control the drone using hand gestures. <br>Hover for more info.</p>
+                    <p class="card-text description" id="handGestureDescription" style="display: none;">Use intuitive hand gestures to command your drone. Simplifies drone navigation, making it accessible and user-friendly for everyone. <br>Hover for more info.</p>
                     <a href="{{ url_for('handgesture_control.connect_to_handgesture') }}">
                         <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="handGestureIcon" style="display: none;">
                     </a>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Keypad Control</h5>
-                    <p class="card-text description" id="keyPadDescription" style="display: none;">Control the drone using a keypad. <br>Hover for more info.</p>
+                    <p class="card-text description" id="keyPadDescription" style="display: none;">Control your drone with precision using a simple keypad interface. Execute commands such as takeoff, land, move up/down, left/right, yaw, and perform flips with ease.<br>Hover for more info.</p>
                     <a href="{{ url_for('keypad_control.connect_to_keypad') }}">
                         <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="keyPadIcon" style="display: none;">
                     </a>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Fire Detection</h5>
-                    <p class="card-text description" id="fireDetectingDescription" style="display: none;">Detect fires using the drone. <br>Hover for more info.</p>
+                    <p class="card-text description" id="fireDetectingDescription" style="display: none;">Detect potential fire hazards with precision using FUAVS' advanced fire detection module. <br>Hover for more info.</p>
                     <a href="{{ url_for('fire_detecting.connect_to_fire_detecting') }}">
                         <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="fireDetectingIcon" style="display: none;">
                     </a>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Gun Detection</h5>
-                    <p class="card-text description" id="gunDetectingDescription" style="display: none;">Detect guns using the drone. <br>Hover for more info.</p>
+                    <p class="card-text description" id="gunDetectingDescription" style="display: none;">Enhance security with the ability to detect firearms. This feature is crucial for surveillance in sensitive areas, ensuring immediate response to potential threats. <br>Hover for more info.</p>
                     <a href="{{ url_for('gun_detecting.connect_to_gundetecter') }}">
                         <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="gunDetectingIcon" style="display: none;">
                     </a>
@@ -102,7 +102,7 @@
             <div class="d-flex align-items-center justify-content-between w-100 mt-5">
                 <div class="left-side w-50">
                     <h3>Face Tracking</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis varius justo, vitae luctus quam malesuada nec. Integer nec ipsum velit. Vivamus id ultrices magna, id lacinia lacus. Curabitur a sapien quis nunc scelerisque finibus.</p>
+                    <p>Utilizing advanced AI algorithms, the Face Detection and Tracking module ensures the drone can lock onto and follow a person's face with high accuracy. This feature is ideal for personalized videography, security, and surveillance applications, as it guarantees the subject remains in focus and centered in the frame, enhancing the quality and effectiveness of the captured footage.</p>
                 </div>
                 <div class="right-side w-50">
                     <img src="{{ url_for('static', filename='images/facetracking.jpg') }}" class="img-fluid" alt="Face Tracking" style="max-width: 400px; max-height: 400px;">
@@ -116,7 +116,7 @@
                 </div>
                 <div class="left-side w-50">
                     <h3>Body Tracking</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis varius justo, vitae luctus quam malesuada nec. Integer nec ipsum velit. Vivamus id ultrices magna, id lacinia lacus. Curabitur a sapien quis nunc scelerisque finibus.</p>
+                    <p>The Body Detection and Tracking leverages sophisticated machine learning techniques to recognize and follow the movements of a person. This hands-free operation is particularly useful for activities like sports, outdoor events, and professional filming, where continuous and dynamic tracking is required. It ensures the drone can autonomously follow the subject, providing a seamless recording experience.</p>
                 </div>
             </div>
 
@@ -124,7 +124,7 @@
             <div class="d-flex align-items-center justify-content-between w-100 mt-5">
                 <div class="left-side w-50">
                     <h3>Hand Gesture Control</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis varius justo, vitae luctus quam malesuada nec. Integer nec ipsum velit. Vivamus id ultrices magna, id lacinia lacus. Curabitur a sapien quis nunc scelerisque finibus.</p>
+                    <p>With the Hand Gesture Control, users can command the drone through simple and intuitive hand gestures. This feature eliminates the need for traditional remote controls, making drone operation accessible and engaging. It is especially beneficial in situations where quick, hands-free control is necessary, such as during active filming or in search and rescue missions.</p>
                 </div>
                 <div class="right-side w-50">
                     <img src="{{ url_for('static', filename='images/handGesture.jpg') }}" class="img-fluid" alt="Hand Gesture Control" style="max-width: 400px; max-height: 400px;">
@@ -138,7 +138,7 @@
                     </div>
                 <div class="left-side w-50">
                     <h3>Keypad Control</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis varius justo, vitae luctus quam malesuada nec. Integer nec ipsum velit. Vivamus id ultrices magna, id lacinia lacus. Curabitur a sapien quis nunc scelerisque finibus.</p>
+                    <p>Keypad Control allows users to maneuver the drone with precision using a straightforward interface. Commands such as takeoff, land, move up/down, left/right, yaw, and perform flips are easily accessible, ensuring efficient and responsive control. This feature is perfect for both novice users and experienced pilots, providing a reliable and intuitive way to navigate the drone.</p>
                 </div>
             </div>
 
@@ -146,7 +146,7 @@
             <div class="d-flex align-items-center justify-content-between w-100 mt-5">
                 <div class="right-side w-50">
                     <h3>Fire Detection</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis varius justo, vitae luctus quam malesuada nec. Integer nec ipsum velit. Vivamus id ultrices magna, id lacinia lacus. Curabitur a sapien quis nunc scelerisque finibus.</p>
+                    <p>The Fire Detection module provides advanced fire hazard identification, leveraging thermal imaging and AI algorithms. This feature is essential for early warning systems in areas prone to wildfires, industrial sites, and large public venues. It enhances safety by detecting fires early and enabling prompt response, potentially saving lives and property.</p>
                 </div>
                 <div class="left-side w-50">
                     <img src="{{ url_for('static', filename='images/fireDetection.jpg') }}" class="img-fluid" alt="Fire Detection" style="max-width: 400px; max-height: 400px;">
@@ -160,7 +160,7 @@
                 </div>
                 <div class="right-side w-50">
                     <h3>Gun Detection</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis varius justo, vitae luctus quam malesuada nec. Integer nec ipsum velit. Vivamus id ultrices magna, id lacinia lacus. Curabitur a sapien quis nunc scelerisque finibus.</p>
+                    <p>To enhance the security capabilities of FUAVS by identifying firearms in real-time. This feature is crucial for surveillance in sensitive areas, such as schools, public events, and restricted zones. By promptly detecting potential threats, it ensures a rapid response, thereby increasing safety and security.</p>
                 </div>
             </div>
         </div>
