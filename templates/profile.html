@@ -16,91 +16,86 @@
             </div>
         </div>
 
-        <div class="row mt-5">
-            <div class="col-md-4 mb-4">
-                <div class="card module-card" onmouseover="showDescription('faceTracking')" onmouseout="hideDescription('faceTracking')">
+        <div class="d-flex flex-row justify-content-between mt-5"> <!-- Flexbox container for cards -->
+            <div class="module-card" onmouseenter="showDescription('faceTracking')" onmouseleave="hideDescription('faceTracking')">
+                <div class="image-container">
                     <img src="{{ url_for('static', filename='images/facetracking.jpg') }}" class="card-img-top" alt="Face Tracking">
-                    <div class="card-body">
-                        <h5 class="card-title">Face Tracking</h5>
-                        <p class="card-text description" id="faceTrackingDescription">Face tracking allows the drone to track human faces. <br>Hover for more info.</p>
-                        <a href="{{ url_for('face_tracking.connect_to_facetracker') }}">
-                            <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="faceTrackingIcon">
-                        </a>
-                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Face Tracking</h5>
+                    <p class="card-text description" id="faceTrackingDescription" style="display: none;">Face tracking allows the drone to track human faces. <br>Hover for more info.</p>
+                    <a href="{{ url_for('face_tracking.connect_to_facetracker') }}">
+                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="faceTrackingIcon" style="display: none;">
+                    </a>
                 </div>
             </div>
-
-            <div class="col-md-4 mb-4">
-              <div class="card module-card" onmouseover="showDescription('bodyTracking')" onmouseout="hideDescription('bodyTracking')">
-                  <img src="{{ url_for('static', filename='images/bodyTracking.jpg') }}" class="card-img-top" alt="Body Tracking">
-                  <div class="card-body">
-                      <h5 class="card-title">Body Tracking</h5>
-                      <p class="card-text description" id="bodyTrackingDescription">Face tracking allows the drone to track human faces. <br>Hover for more info.</p>
-                      <a href="{{ url_for('face_tracking.connect_to_facetracker') }}">
-                          <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="bodyTrackingIcon">
-                      </a>
-                  </div>
-              </div>
-          </div>
-
-          <div class="col-md-4 mb-4">
-            <div class="card module-card" onmouseover="showDescription('handGesture')" onmouseout="hideDescription('handGesture')">
-                <img src="{{ url_for('static', filename='images/handGesture.jpg') }}" class="card-img-top" alt="Body Tracking">
+        
+            <div class="module-card" onmouseenter="showDescription('bodyTracking')" onmouseleave="hideDescription('bodyTracking')">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/bodyTracking.jpg') }}" class="card-img-top" alt="Body Tracking">
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">Hand Gesture Control </h5>
-                    <p class="card-text description" id="handGestureDescription">Face tracking allows the drone to track human faces. <br>Hover for more info.</p>
-                    <a href="{{ url_for('face_tracking.connect_to_facetracker') }}">
-                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="handGestureIcon">
+                    <h5 class="card-title">Body Tracking</h5>
+                    <p class="card-text description" id="bodyTrackingDescription" style="display: none;">Body tracking allows the drone to track human bodies. <br>Hover for more info.</p>
+                    <a href="{{ url_for('body_tracking.connect_to_bodytracker') }}">
+                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="bodyTrackingIcon" style="display: none;">
+                    </a>
+                </div>
+            </div>
+        
+            <div class="module-card" onmouseenter="showDescription('handGesture')" onmouseleave="hideDescription('handGesture')">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/handGesture.jpg') }}" class="card-img-top" alt="Hand Gesture Control">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Hand Gesture Control</h5>
+                    <p class="card-text description" id="handGestureDescription" style="display: none;">Control the drone using hand gestures. <br>Hover for more info.</p>
+                    <a href="{{ url_for('handgesture_control.connect_to_handgesture') }}">
+                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="handGestureIcon" style="display: none;">
+                    </a>
+                </div>
+            </div>
+        
+            <div class="module-card" onmouseenter="showDescription('keyPad')" onmouseleave="hideDescription('keyPad')">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/keyPad.jpg') }}" class="card-img-top" alt="Keypad Control">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Keypad Control</h5>
+                    <p class="card-text description" id="keyPadDescription" style="display: none;">Control the drone using a keypad. <br>Hover for more info.</p>
+                    <a href="{{ url_for('keypad_control.connect_to_keypad') }}">
+                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="keyPadIcon" style="display: none;">
+                    </a>
+                </div>
+            </div>
+        
+            <div class="module-card" onmouseenter="showDescription('fireDetecting')" onmouseleave="hideDescription('fireDetecting')">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/fireDetection.jpg') }}" class="card-img-top" alt="Fire Detection">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Fire Detection</h5>
+                    <p class="card-text description" id="fireDetectingDescription" style="display: none;">Detect fires using the drone. <br>Hover for more info.</p>
+                    <a href="{{ url_for('fire_detecting.connect_to_fire_detecting') }}">
+                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="fireDetectingIcon" style="display: none;">
+                    </a>
+                </div>
+            </div>
+        
+            <div class="module-card" onmouseenter="showDescription('gunDetecting')" onmouseleave="hideDescription('gunDetecting')">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/gunDetection.jpg') }}" class="card-img-top" alt="Gun Detection">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Gun Detection</h5>
+                    <p class="card-text description" id="gunDetectingDescription" style="display: none;">Detect guns using the drone. <br>Hover for more info.</p>
+                    <a href="{{ url_for('gun_detecting.connect_to_gundetecter') }}">
+                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="gunDetectingIcon" style="display: none;">
                     </a>
                 </div>
             </div>
         </div>
         
-
-        <div class="col-md-4 mb-4">
-          <div class="card module-card" onmouseover="showDescription('keyPad')" onmouseout="hideDescription('keyPad')">
-              <img src="{{ url_for('static', filename='images/keyPad.jpg') }}" class="card-img-top" alt="Body Tracking">
-              <div class="card-body">
-                  <h5 class="card-title">Keypad Control</h5>
-                  <p class="card-text description" id="keyPadDescription">Face tracking allows the drone to track human faces. <br>Hover for more info.</p>
-                  <a href="{{ url_for('face_tracking.connect_to_facetracker') }}">
-                      <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="keyPadIcon">
-                  </a>
-              </div>
-          </div>
-      </div>
-      
-
-      <div class="col-md-4 mb-4">
-        <div class="card module-card" onmouseover="showDescription('fireDetecting')" onmouseout="hideDescription('fireDetecting')">
-            <img src="{{ url_for('static', filename='images/fireDetection.jpg') }}" class="card-img-top" alt="Body Tracking">
-            <div class="card-body">
-                <h5 class="card-title">Fire Detection</h5>
-                <p class="card-text description" id="fireDetectingDescription">Face tracking allows the drone to track human faces. <br>Hover for more info.</p>
-                <a href="{{ url_for('face_tracking.connect_to_facetracker') }}">
-                    <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="fireDetectingIcon">
-                </a>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class="col-md-4 mb-4">
-      <div class="card module-card" onmouseover="showDescription('gunDetecting')" onmouseout="hideDescription('gunDetecting')">
-          <img src="{{ url_for('static', filename='images/gunDetection.jpg') }}" class="card-img-top" alt="Body Tracking">
-          <div class="card-body">
-              <h5 class="card-title">Gun Detection</h5>
-              <p class="card-text description" id="gunDetectingDescription">Face tracking allows the drone to track human faces. <br>Hover for more info.</p>
-              <a href="{{ url_for('face_tracking.connect_to_facetracker') }}">
-                  <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="gunDetectingIcon">
-              </a>
-          </div>
-      </div>
-  </div>
-  
-          
-            <!-- Add similar card structures for other modules -->
-        </div>
     </div>
 </div>
 

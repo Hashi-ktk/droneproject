@@ -60,16 +60,7 @@ body {
 
 /* Additional CSS for profile.html */
 /* styles.css */
-
-/* styles.css */
-.back-image {
-    background: linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0)), url('../static/images/background.jpg');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
+/* Additional CSS for profile.html */
 
 .welcome-card {
     background-color: rgba(255, 255, 255, 0.1);
@@ -82,6 +73,8 @@ body {
     border: none;
     transition: all 0.3s ease;
     border-radius: 10px;
+    width: 15%; /* Adjust the width to make the cards smaller */
+    margin: 0 10px; /* Add margin between the cards */
 }
 
 .module-card:hover {
@@ -90,11 +83,11 @@ body {
 }
 
 .module-card .card-body {
-    padding: 20px;
+    padding: 15px; /* Adjust padding for a smaller card size */
 }
 
 .module-card .card-title {
-    font-size: 24px;
+    font-size: 20px; /* Adjust font size for a smaller card */
     font-weight: bold;
     color: #fff;
 }
@@ -110,17 +103,34 @@ body {
 
 .module-card .continue-icon {
     display: none;
-    width: 30px;
-    height: 30px;
+    width: 25px; /* Adjust icon size for a smaller card */
+    height: 25px;
     margin-top: 10px;
 }
 
-.module-card .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+.image-container {
+    width: 100%;
+    padding-top: 125%; /* 4:5 aspect ratio */
+    position: relative;
+    overflow: hidden;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
-.module-card .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
+.image-container img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: auto;
+    transform: translate(-50%, -50%);
+}
+
+.image-container img.landscape {
+    width: 100%;
+    height: auto;
+}
+
+.description, .continue-icon {
+    display: none;
 }

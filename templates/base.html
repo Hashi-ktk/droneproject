@@ -61,14 +61,20 @@
         </div>
     </nav>
 
-    <div class="hero-body d-flex">
-        <div class="d-flex justify-content-center align-items-center">
-            {% block content %}
-            {% endblock %}
-          </div>
-        <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="hero-body d-flex flex-column align-items-center">
+        <div class="content-container w-100 d-flex justify-content-center">
+            <div class="center-content">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+        <div class="container-fluid d-flex align-items-center justify-content-between w-100">
             <div class="left-side w-50">
                 {% block left_side %}
+                {% endblock %}
+            </div>
+            <div class="center-side px-3">
+                {% block center_side %}
                 {% endblock %}
             </div>
             <div class="right-side w-50">
@@ -77,5 +83,6 @@
             </div>            
         </div>
     </div>
+    
 </body>
 </html>
