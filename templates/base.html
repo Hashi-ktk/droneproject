@@ -26,28 +26,28 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav me-2 mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a href="{{ url_for('main.index') }}" class="nav-link active fs-4 font-semibold"
-                            aria-current="page" href="#">Home</a>
+                        <a href="{{ url_for('main.index') }}" class="nav-link {% if request.endpoint == 'main.index' %}active{% endif %} fs-4 font-semibold"
+                            aria-current="page">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fs-4 font-semibold" href="{{ url_for('main.team') }}">Team</a>
+                        <a class="nav-link {% if request.endpoint == 'main.team' %}active{% endif %} fs-4 font-semibold" href="{{ url_for('main.team') }}">Team</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fs-4 font-semibold" href="{{ url_for('main.how_to_use') }}">How to Use</a>
+                        <a class="nav-link {% if request.endpoint == 'main.how_to_use' %}active{% endif %} fs-4 font-semibold" href="{{ url_for('main.how_to_use') }}">How to Use</a>
                     </li>
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link fs-4 font-semibold" href="{{ url_for('main.profile') }}">Profile</a>
+                        <a class="nav-link {% if request.endpoint == 'main.profile' %}active{% endif %} fs-4 font-semibold" href="{{ url_for('main.profile') }}">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link fs-4 font-semibold" href="{{ url_for('auth.logout') }}">Logout</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link fs-4 font-semibold" href="{{ url_for('auth.login') }}">Login</a>
+                        <a class="nav-link {% if request.endpoint == 'auth.login' %}active{% endif %} fs-4 font-semibold" href="{{ url_for('auth.login') }}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fs-4 font-semibold" href="{{ url_for('auth.signup') }}">Signup</a>
+                        <a class="nav-link {% if request.endpoint == 'auth.signup' %}active{% endif %} fs-4 font-semibold" href="{{ url_for('auth.signup') }}">Signup</a>
                     </li>
                     {% endif %}
                 </ul>

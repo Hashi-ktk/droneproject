@@ -7,11 +7,13 @@
   </h1>
   <img id="bodyVideo" src="{{ url_for('body_tracking.bodytracker_video_feed') }}" alt="Body Video">
   
-  <div class="button-group d-flex justify-content-center mt-3">
-    <button id="captureImageBtn" class="button is-primary fs-3 mx-2">Capture Image</button>
-    <button id="startRecordingBtn" class="button is-success fs-3 mx-2">Start Recording</button>
-    <button id="stopRecordingBtn" class="button is-warning fs-3 mx-2">Stop Recording</button>
-    <button id="stopTrackingBtn" class="button is-danger fs-3 mx-2">Stop Body Tracking</button>
+  <div class="button-group mt-3">
+    <button id="captureImageBtn" class="button is-primary mx-2">Capture Image</button>
+    <button id="startRecordingBtn" class="button is-success mx-2">Start Recording</button>
+    <button id="stopRecordingBtn" class="button is-warning mx-2">Stop Recording</button>
+  </div>
+  <div class="d-flex justify-content-center">
+    <button id="stopTrackingBtn" class="button is-danger mx-2">Stop Body Tracking</button>
   </div>
 
   <script>
