@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block left_side %}
-<h1 class="mt-5">FUAVS - Designing a Better World Today</h1>
+<h1 style="margin-top: -10rem;">FUAVS - Designing a Better World Today</h1>
 <h2>Welcome to our world of endless imagination and boundless creativity.</h2>
 <div class="mt-3">
     {% if current_user.is_authenticated %}
@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block right_side %}
-<div class="right-side text-right">
+<div style="margin-top: -45px;">
     <div id="drone-animation"></div>
 </div>
 
@@ -30,13 +30,13 @@
 {% endblock %}
 
 {% block additional_content %}
-<div class="text-center mt-5">
+<div class="text-center" style="margin-top: -18rem;">
     <h3>About FUAVS</h3>
     <p>FUAVS is dedicated to revolutionizing the world through innovative UAV solutions.</p>
 </div>
 <br>
 <div class="text-center">
-    <h3>Our Vision</h3>
+    <h3 class="mb-2">Our Vision</h3>
     <img src="{{ url_for('static', filename='images/Vision.jpg') }}" alt="Vision Image"
         style="max-width: 400px; max-height: 400px; border-radius:  20px;">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore

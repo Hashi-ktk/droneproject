@@ -391,16 +391,17 @@ p {
 
 /* Specific styling for the "Back" button */
 #backBtn {
-    font-size: 18px;
-    padding: 5px 20px;
+    /* font-size: 18px; */
+    /* padding: 5px 20px; */
     /* Adjust horizontal padding */
     background-color: #007bff;
     color: white;
     border-radius: 5px;
-    transition: background-color 0.3s, transform 0.3s;
-    height: auto;
+    width: 100px;
+    height: 70px;
+    margin-top: 20px;
+    /* transition: background-color 0.3s, transform 0.3s; */
     /* Ensure height adjusts to fit content */
-    line-height: normal;
     /* Ensure line height is normal */
 }
 
