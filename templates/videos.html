@@ -8,16 +8,16 @@
   <div class="mb-3">
     <a href="{{ url_for('main.profile') }}" class="btn btn-primary">Back to Profile</a>
   </div>
-  <div class="row">
+  <div class="row" id="videos-container">
     {% for video in videos %}
-      <div class="col-md-4" id="video-{{ video }}">
-        <div class="card mb-4">
-          <video width="320" height="240" controls>
+      <div class="col-md-4 video-card" id="video-{{ video }}">
+        <div class="card mb-4" style="width: 18rem;">
+          <video class="card-video-top" controls>
             <source src="{{ url_for('main.send_video', username=username, filename=video) }}" type="video/mp4">
             Your browser does not support the video tag.
           </video>
           <div class="card-body">
-            <a href="#" class="btn btn-danger btn-sm" onclick="deleteVideo('{{ video }}')">Delete</a>
+            <a href="#" class="btn btn-danger btn-sm" onclick="deleteVideo('{{ video }}'); return false;">Delete</a>
           </div>
         </div>
       </div>
@@ -27,6 +27,9 @@
     {% endif %}
   </div>
 </div>
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
   function deleteVideo(video) {
@@ -41,6 +44,9 @@
           console.log('Delete response:', response); // Debugging
           if (response.success) {
             $('#video-' + response.video).remove();
+            if ($('#videos-container').children().length === 0) {
+              $('#videos-container').html('<p class="text-center">No videos found.</p>');
+            }
           } else {
             alert('Failed to delete video.');
           }
@@ -50,6 +56,7 @@
         }
       });
     }
+    return false; // Prevent the default action
   }
 </script>
 {% endblock %}

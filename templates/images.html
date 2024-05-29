@@ -8,13 +8,13 @@
   <div class="mb-3">
     <a href="{{ url_for('main.profile') }}" class="btn btn-primary">Back to Profile</a>
   </div>
-  <div class="row">
+  <div class="row" id="images-container">
     {% for image in images %}
-      <div class="col-md-4" id="image-{{ image }}">
-        <div class="card mb-4">
-          <img src="{{ url_for('main.send_image', username=username, filename=image) }}" class="card-img-top" alt="Image">
+      <div class="col-md-4 image-card" id="image-{{ image }}">
+        <div class="card mb-4" style="width: 18rem;">
+          <img src="{{ url_for('main.send_image', username=username, filename=image) }}" class="card-img-top image-hover" alt="Image">
           <div class="card-body">
-            <a href="#" class="btn btn-danger btn-sm" onclick="deleteImage('{{ image }}')">Delete</a>
+            <a href="#" class="btn btn-danger btn-sm" onclick="deleteImage('{{ image }}'); return false;">Delete</a>
           </div>
         </div>
       </div>
@@ -24,6 +24,9 @@
     {% endif %}
   </div>
 </div>
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
   function deleteImage(image) {
@@ -38,6 +41,9 @@
           console.log('Delete response:', response); // Debugging
           if (response.success) {
             $('#image-' + response.image).remove();
+            if ($('#images-container').children().length === 0) {
+              $('#images-container').html('<p class="text-center">No images found.</p>');
+            }
           } else {
             alert('Failed to delete image.');
           }
@@ -47,6 +53,7 @@
         }
       });
     }
+    return false; // Prevent the default action
   }
 </script>
 {% endblock %}

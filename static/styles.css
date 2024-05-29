@@ -7,21 +7,27 @@ body {
 .nav-link {
     font-size: 14px;
     padding: 5px 10px;
-    transition: color 0.3s, font-size 0.3s, transform 0.3s; /* Smooth color, size, and transform transition on hover */
+    transition: color 0.3s, font-size 0.3s, transform 0.3s;
+    /* Smooth color, size, and transform transition on hover */
 }
 
 /* Hover effect for navigation links */
 .nav-link:hover {
     color: #f0f0f0 !important;
-    font-size: 16px; /* Increase font size on hover */
-    transform: scale(1.1); /* Slightly enlarge the link on hover */
+    font-size: 16px;
+    /* Increase font size on hover */
+    transform: scale(1.1);
+    /* Slightly enlarge the link on hover */
 }
 
 /* Styling for the active link */
 .nav-link.active {
-    color: #007bff !important; /* Change color of the active link */
-    font-size: 16px; /* Keep font size increased for the active link */
-    font-weight: bold; /* Make the active link bold */
+    color: #007bff !important;
+    /* Change color of the active link */
+    font-size: 16px;
+    /* Keep font size increased for the active link */
+    font-weight: bold;
+    /* Make the active link bold */
 }
 
 /* Icon image styling */
@@ -83,23 +89,30 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative; /* Added to allow absolute positioning of children */
+    position: relative;
+    /* Added to allow absolute positioning of children */
 }
 
 .team-card {
-    width: 270px; /* Slightly increased width */
-    aspect-ratio: 4 / 5; /* Aspect ratio 4:5 */
+    width: 270px;
+    /* Slightly increased width */
+    aspect-ratio: 4 / 5;
+    /* Aspect ratio 4:5 */
     margin: 20px;
     overflow: hidden;
     position: relative;
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    border-radius: 15px;
+    /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Shadow effect */
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .team-card:hover {
-    transform: scale(1.05); /* Scale up on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+    transform: scale(1.05);
+    /* Scale up on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    /* Enhanced shadow on hover */
 }
 
 .team-card-inner {
@@ -121,7 +134,8 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Dark overlay */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -146,18 +160,23 @@ p {
 
 /* Zigzag positioning for team cards */
 .team-card-1 {
-    top: 130px;/* First card stays at the top */
-    left: 200px; /* Adjust left position */
+    top: 130px;
+    /* First card stays at the top */
+    left: 200px;
+    /* Adjust left position */
 }
 
 .team-card-2 {
     /* Adjusted top position to move it down */
-    left: -130px; /* Adjust left position */
+    left: -130px;
+    /* Adjust left position */
 }
 
 .team-card-3 {
-    bottom: 130px;/* Adjusted top position to move it down */
-    left: 200px; /* Adjust left position */
+    bottom: 130px;
+    /* Adjusted top position to move it down */
+    left: 200px;
+    /* Adjust left position */
 }
 
 
@@ -203,21 +222,25 @@ p {
     border: none;
     transition: all 0.3s ease;
     border-radius: 10px;
-    width: 15%; /* Adjust the width to make the cards smaller */
-    margin: 0 10px; /* Add margin between the cards */
+    width: 15%;
+    /* Adjust the width to make the cards smaller */
+    margin: 0 10px;
+    /* Add margin between the cards */
 }
 
 .module-card:hover {
     transform: scale(1.05);
-    box-shadow: 0px 0px 10px 5px rgba(255,255,255,0.3);
+    box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 0.3);
 }
 
 .module-card .card-body {
-    padding: 15px; /* Adjust padding for a smaller card size */
+    padding: 15px;
+    /* Adjust padding for a smaller card size */
 }
 
 .module-card .card-title {
-    font-size: 20px; /* Adjust font size for a smaller card */
+    font-size: 20px;
+    /* Adjust font size for a smaller card */
     font-weight: bold;
     color: #fff;
 }
@@ -233,14 +256,16 @@ p {
 
 .module-card .continue-icon {
     display: none;
-    width: 25px; /* Adjust icon size for a smaller card */
+    width: 25px;
+    /* Adjust icon size for a smaller card */
     height: 25px;
     margin-top: 10px;
 }
 
 .image-container {
     width: 100%;
-    padding-top: 125%; /* 4:5 aspect ratio */
+    padding-top: 125%;
+    /* 4:5 aspect ratio */
     position: relative;
     overflow: hidden;
     border-top-left-radius: 10px;
@@ -261,7 +286,8 @@ p {
     height: auto;
 }
 
-.description, .continue-icon {
+.description,
+.continue-icon {
     display: none;
 }
 
@@ -347,13 +373,16 @@ p {
 /* Specific styling for the "Back" button */
 #backBtn {
     font-size: 18px;
-    padding: 5px 20px; /* Adjust horizontal padding */
+    padding: 5px 20px;
+    /* Adjust horizontal padding */
     background-color: #007bff;
     color: white;
     border-radius: 5px;
     transition: background-color 0.3s, transform 0.3s;
-    height: auto; /* Ensure height adjusts to fit content */
-    line-height: normal; /* Ensure line height is normal */
+    height: auto;
+    /* Ensure height adjusts to fit content */
+    line-height: normal;
+    /* Ensure line height is normal */
 }
 
 
@@ -361,4 +390,42 @@ p {
 #backBtn:hover {
     transform: scale(1.1);
     opacity: 0.8;
+}
+
+.image-hover {
+    transition: transform 0.3s;
+}
+
+.image-hover:hover {
+    transform: scale(1.05);
+}
+
+.card {
+    width: 18rem;
+    overflow: hidden;
+    /* Ensures the image stays within the card */
+}
+
+.card-img-top {
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+    /* Ensures the image takes the full width of the card */
+}
+
+.image-card {
+    margin-bottom: 1.5rem;
+    /* Adds some spacing between cards */
+}
+
+.card-video-top {
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+    /* Ensures the video takes the full width of the card */
+}
+
+.video-card {
+    margin-bottom: 1.5rem;
+    /* Adds some spacing between cards */
 }
