@@ -10,17 +10,18 @@
   </div>
   <div class="row" id="images-container">
     {% for image in images %}
-      <div class="col-md-4 image-card" id="image-{{ image }}">
-        <div class="card mb-4" style="width: 18rem;">
-          <img src="{{ url_for('main.send_image', username=username, filename=image) }}" class="card-img-top image-hover" alt="Image">
-          <div class="card-body">
-            <a href="#" class="btn btn-danger btn-sm" onclick="deleteImage('{{ image }}'); return false;">Delete</a>
-          </div>
+    <div class="col-md-4 image-card" id="image-{{ image }}">
+      <div class="card mb-4" style="width: 18rem;">
+        <img src="{{ url_for('main.send_image', username=username, filename=image) }}" class="card-img-top image-hover"
+          alt="Image">
+        <div class="card-body">
+          <a href="#" class="btn btn-danger btn-sm" onclick="deleteImage('{{ image }}'); return false;">Delete</a>
         </div>
       </div>
+    </div>
     {% endfor %}
     {% if not images %}
-      <p class="text-center">No images found.</p>
+    <p class="text-center">No images found.</p>
     {% endif %}
   </div>
 </div>
@@ -37,7 +38,7 @@
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify({ image: image }),
-        success: function(response) {
+        success: function (response) {
           console.log('Delete response:', response); // Debugging
           if (response.success) {
             $('#image-' + response.image).remove();
@@ -48,7 +49,7 @@
             alert('Failed to delete image.');
           }
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
           console.error('Delete error:', error); // Debugging
         }
       });

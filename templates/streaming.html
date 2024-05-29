@@ -6,28 +6,29 @@
 </h1>
 <img id="droneVideo" src="{{ url_for('drone_stream.video_feed') }}" alt="Drone Video">
 <button id="faceTrackingBtn" class="button is-primary fs-3 d-flex justify-content-center">Start Face Tracking</button>
-<button id="stopTrackingBtn" class="button is-danger fs-3 d-flex justify-content-center mt-3">Stop Face Tracking</button>
+<button id="stopTrackingBtn" class="button is-danger fs-3 d-flex justify-content-center mt-3">Stop Face
+  Tracking</button>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  var faceTrackingBtn = document.getElementById("faceTrackingBtn");
-  var stopTrackingBtn = document.getElementById("stopTrackingBtn");
-  var droneVideo = document.getElementById("droneVideo");
+  document.addEventListener("DOMContentLoaded", function () {
+    var faceTrackingBtn = document.getElementById("faceTrackingBtn");
+    var stopTrackingBtn = document.getElementById("stopTrackingBtn");
+    var droneVideo = document.getElementById("droneVideo");
 
-  faceTrackingBtn.addEventListener("click", function() {
-    droneVideo.src = "{{ url_for('face_tracking.facetracker_video_feed') }}";
-  });
+    faceTrackingBtn.addEventListener("click", function () {
+      droneVideo.src = "{{ url_for('face_tracking.facetracker_video_feed') }}";
+    });
 
-  stopTrackingBtn.addEventListener("click", function() {
-    fetch("{{ url_for('face_tracking.stop_tracking_route') }}")
-      .then(response => response.text())
-      .then(data => {
-        console.log(data); // Log response from the server
-        droneVideo.src = ""; // Clear the video feed
-        alert('Face tracking stopped.');
-      })
-      .catch(error => console.error('Error:', error));
+    stopTrackingBtn.addEventListener("click", function () {
+      fetch("{{ url_for('face_tracking.stop_tracking_route') }}")
+        .then(response => response.text())
+        .then(data => {
+          console.log(data); // Log response from the server
+          droneVideo.src = ""; // Clear the video feed
+          alert('Face tracking stopped.');
+        })
+        .catch(error => console.error('Error:', error));
+    });
   });
-});
 </script>
 {% endblock %}

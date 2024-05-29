@@ -17,54 +17,54 @@
   </div>
 
   <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var stopTrackingBtn = document.getElementById("stopTrackingBtn");
-    var captureImageBtn = document.getElementById("captureImageBtn");
-    var startRecordingBtn = document.getElementById("startRecordingBtn");
-    var stopRecordingBtn = document.getElementById("stopRecordingBtn");
-    var droneVideo = document.getElementById("droneVideo");
+    document.addEventListener("DOMContentLoaded", function () {
+      var stopTrackingBtn = document.getElementById("stopTrackingBtn");
+      var captureImageBtn = document.getElementById("captureImageBtn");
+      var startRecordingBtn = document.getElementById("startRecordingBtn");
+      var stopRecordingBtn = document.getElementById("stopRecordingBtn");
+      var droneVideo = document.getElementById("droneVideo");
 
-    stopTrackingBtn.addEventListener("click", function() {
-      fetch("{{ url_for('face_tracking.stop_facetracking') }}")
-        .then(response => response.text())
-        .then(data => {
-          console.log(data);
-          droneVideo.src = "";
-          alert('Face tracking stopped.');
-        })
-        .catch(error => console.error('Error:', error));
-    });
+      stopTrackingBtn.addEventListener("click", function () {
+        fetch("{{ url_for('face_tracking.stop_facetracking') }}")
+          .then(response => response.text())
+          .then(data => {
+            console.log(data);
+            droneVideo.src = "";
+            alert('Face tracking stopped.');
+          })
+          .catch(error => console.error('Error:', error));
+      });
 
-    captureImageBtn.addEventListener("click", function() {
-      fetch("{{ url_for('face_tracking.capture_image') }}")
-        .then(response => response.text())
-        .then(data => {
-          console.log(data);
-          alert('Image captured: ' + data);
-        })
-        .catch(error => console.error('Error:', error));
-    });
+      captureImageBtn.addEventListener("click", function () {
+        fetch("{{ url_for('face_tracking.capture_image') }}")
+          .then(response => response.text())
+          .then(data => {
+            console.log(data);
+            alert('Image captured: ' + data);
+          })
+          .catch(error => console.error('Error:', error));
+      });
 
-    startRecordingBtn.addEventListener("click", function() {
-      fetch("{{ url_for('face_tracking.start_recording') }}")
-        .then(response => response.text())
-        .then(data => {
-          console.log(data);
-          alert(data);
-        })
-        .catch(error => console.error('Error:', error));
-    });
+      startRecordingBtn.addEventListener("click", function () {
+        fetch("{{ url_for('face_tracking.start_recording') }}")
+          .then(response => response.text())
+          .then(data => {
+            console.log(data);
+            alert(data);
+          })
+          .catch(error => console.error('Error:', error));
+      });
 
-    stopRecordingBtn.addEventListener("click", function() {
-      fetch("{{ url_for('face_tracking.stop_recording') }}")
-        .then(response => response.text())
-        .then(data => {
-          console.log(data);
-          alert(data);
-        })
-        .catch(error => console.error('Error:', error));
+      stopRecordingBtn.addEventListener("click", function () {
+        fetch("{{ url_for('face_tracking.stop_recording') }}")
+          .then(response => response.text())
+          .then(data => {
+            console.log(data);
+            alert(data);
+          })
+          .catch(error => console.error('Error:', error));
+      });
     });
-  });
   </script>
 </div>
 {% endblock %}

@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container-fluid back-image d-flex justify-content-center align-items-center"> <!-- Center content horizontally and vertically -->
+<div class="container-fluid back-image d-flex justify-content-center align-items-center">
+    <!-- Center content horizontally and vertically -->
     <div class="text-center">
         <div class="welcome-card mt-5">
             <h1 class="text-danger">Welcome, {{ name }}!</h1>
-            <p>Experience seamless drone control with FUAVS - The ultimate Follow-Me UAV system, designed for effortless operation and unmatched versatility. An innovative drone control application that leverages advanced AI technology to offer seamless and intuitive operation. </p>
+            <p>Experience seamless drone control with FUAVS - The ultimate Follow-Me UAV system, designed for effortless
+                operation and unmatched versatility. An innovative drone control application that leverages advanced AI
+                technology to offer seamless and intuitive operation. </p>
         </div>
 
         <div class="media-section mt-5">
@@ -17,80 +20,110 @@
         </div>
 
         <div class="d-flex flex-row justify-content-between mt-5"> <!-- Flexbox container for cards -->
-            <div class="module-card" onmouseenter="showDescription('faceTracking')" onmouseleave="hideDescription('faceTracking')">
+            <div class="module-card" onmouseenter="showDescription('faceTracking')"
+                onmouseleave="hideDescription('faceTracking')">
                 <div class="image-container">
-                    <img src="{{ url_for('static', filename='images/facetracking.jpg') }}" class="card-img-top" alt="Face Tracking">
+                    <img src="{{ url_for('static', filename='images/facetracking.jpg') }}" class="card-img-top"
+                        alt="Face Tracking">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Face Tracking</h5>
-                    <p class="card-text description" id="faceTrackingDescription" style="display: none;">Leverage advanced AI algorithms to detect and track faces, ensuring the drone follows the target smoothly. Ideal for personalized videography and security applications. <br>Hover for more info.</p>
+                    <p class="card-text description" id="faceTrackingDescription" style="display: none;">Leverage
+                        advanced AI algorithms to detect and track faces, ensuring the drone follows the target
+                        smoothly. Ideal for personalized videography and security applications. <br>Hover for more info.
+                    </p>
                     <a href="{{ url_for('face_tracking.connect_to_facetracker') }}">
-                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="faceTrackingIcon" style="display: none;">
+                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue"
+                            class="continue-icon" id="faceTrackingIcon" style="display: none;">
                     </a>
                 </div>
             </div>
-        
-            <div class="module-card" onmouseenter="showDescription('bodyTracking')" onmouseleave="hideDescription('bodyTracking')">
+
+            <div class="module-card" onmouseenter="showDescription('bodyTracking')"
+                onmouseleave="hideDescription('bodyTracking')">
                 <div class="image-container">
-                    <img src="{{ url_for('static', filename='images/bodyTracking.jpg') }}" class="card-img-top" alt="Body Tracking">
+                    <img src="{{ url_for('static', filename='images/bodyTracking.jpg') }}" class="card-img-top"
+                        alt="Body Tracking">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Body Tracking</h5>
-                    <p class="card-text description" id="bodyTrackingDescription" style="display: none;">Automatically detect and follow the movements of a person, providing hands-free operation. Perfect for activities like filming, sports, and surveillance. <br>Hover for more info.</p>
+                    <p class="card-text description" id="bodyTrackingDescription" style="display: none;">Automatically
+                        detect and follow the movements of a person, providing hands-free operation. Perfect for
+                        activities like filming, sports, and surveillance. <br>Hover for more info.</p>
                     <a href="{{ url_for('body_tracking.connect_to_bodytracker') }}">
-                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="bodyTrackingIcon" style="display: none;">
+                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue"
+                            class="continue-icon" id="bodyTrackingIcon" style="display: none;">
                     </a>
                 </div>
             </div>
-        
-            <div class="module-card" onmouseenter="showDescription('handGesture')" onmouseleave="hideDescription('handGesture')">
+
+            <div class="module-card" onmouseenter="showDescription('handGesture')"
+                onmouseleave="hideDescription('handGesture')">
                 <div class="image-container">
-                    <img src="{{ url_for('static', filename='images/handGesture.jpg') }}" class="card-img-top" alt="Hand Gesture Control">
+                    <img src="{{ url_for('static', filename='images/handGesture.jpg') }}" class="card-img-top"
+                        alt="Hand Gesture Control">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Hand Gesture Control</h5>
-                    <p class="card-text description" id="handGestureDescription" style="display: none;">Use intuitive hand gestures to command your drone. Simplifies drone navigation, making it accessible and user-friendly for everyone. <br>Hover for more info.</p>
+                    <p class="card-text description" id="handGestureDescription" style="display: none;">Use intuitive
+                        hand gestures to command your drone. Simplifies drone navigation, making it accessible and
+                        user-friendly for everyone. <br>Hover for more info.</p>
                     <a href="{{ url_for('handgestures_control.connect_to_handgestures') }}">
-                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="handGestureIcon" style="display: none;">
+                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue"
+                            class="continue-icon" id="handGestureIcon" style="display: none;">
                     </a>
                 </div>
             </div>
-        
+
             <div class="module-card" onmouseenter="showDescription('keyPad')" onmouseleave="hideDescription('keyPad')">
                 <div class="image-container">
-                    <img src="{{ url_for('static', filename='images/keyPad.jpg') }}" class="card-img-top" alt="Keypad Control">
+                    <img src="{{ url_for('static', filename='images/keyPad.jpg') }}" class="card-img-top"
+                        alt="Keypad Control">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Keypad Control</h5>
-                    <p class="card-text description" id="keyPadDescription" style="display: none;">Control your drone with precision using a simple keypad interface. Execute commands such as takeoff, land, move up/down, left/right, yaw, and perform flips with ease.<br>Hover for more info.</p>
+                    <p class="card-text description" id="keyPadDescription" style="display: none;">Control your drone
+                        with precision using a simple keypad interface. Execute commands such as takeoff, land, move
+                        up/down, left/right, yaw, and perform flips with ease.<br>Hover for more info.</p>
                     <a href="{{ url_for('keypad_control.connect_to_keypad') }}">
-                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="keyPadIcon" style="display: none;">
+                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue"
+                            class="continue-icon" id="keyPadIcon" style="display: none;">
                     </a>
                 </div>
             </div>
-        
-            <div class="module-card" onmouseenter="showDescription('fireDetecting')" onmouseleave="hideDescription('fireDetecting')">
+
+            <div class="module-card" onmouseenter="showDescription('fireDetecting')"
+                onmouseleave="hideDescription('fireDetecting')">
                 <div class="image-container">
-                    <img src="{{ url_for('static', filename='images/fireDetection.jpg') }}" class="card-img-top" alt="Fire Detection">
+                    <img src="{{ url_for('static', filename='images/fireDetection.jpg') }}" class="card-img-top"
+                        alt="Fire Detection">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Fire Detection</h5>
-                    <p class="card-text description" id="fireDetectingDescription" style="display: none;">Detect potential fire hazards with precision using FUAVS' advanced fire detection module. <br>Hover for more info.</p>
+                    <p class="card-text description" id="fireDetectingDescription" style="display: none;">Detect
+                        potential fire hazards with precision using FUAVS' advanced fire detection module. <br>Hover for
+                        more info.</p>
                     <a href="{{ url_for('fire_detecting.connect_to_fire_detecting') }}">
-                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="fireDetectingIcon" style="display: none;">
+                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue"
+                            class="continue-icon" id="fireDetectingIcon" style="display: none;">
                     </a>
                 </div>
             </div>
-        
-            <div class="module-card" onmouseenter="showDescription('gunDetecting')" onmouseleave="hideDescription('gunDetecting')">
+
+            <div class="module-card" onmouseenter="showDescription('gunDetecting')"
+                onmouseleave="hideDescription('gunDetecting')">
                 <div class="image-container">
-                    <img src="{{ url_for('static', filename='images/gunDetection.jpg') }}" class="card-img-top" alt="Gun Detection">
+                    <img src="{{ url_for('static', filename='images/gunDetection.jpg') }}" class="card-img-top"
+                        alt="Gun Detection">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Gun Detection</h5>
-                    <p class="card-text description" id="gunDetectingDescription" style="display: none;">Enhance security with the ability to detect firearms. This feature is crucial for surveillance in sensitive areas, ensuring immediate response to potential threats. <br>Hover for more info.</p>
+                    <p class="card-text description" id="gunDetectingDescription" style="display: none;">Enhance
+                        security with the ability to detect firearms. This feature is crucial for surveillance in
+                        sensitive areas, ensuring immediate response to potential threats. <br>Hover for more info.</p>
                     <a href="{{ url_for('gun_detecting.connect_to_gundetecter') }}">
-                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue" class="continue-icon" id="gunDetectingIcon" style="display: none;">
+                        <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="Continue"
+                            class="continue-icon" id="gunDetectingIcon" style="display: none;">
                     </a>
                 </div>
             </div>
@@ -102,21 +135,31 @@
             <div class="d-flex align-items-center justify-content-between w-100 mt-5">
                 <div class="left-side w-50">
                     <h3>Face Tracking</h3>
-                    <p>Utilizing advanced AI algorithms, the Face Detection and Tracking module ensures the drone can lock onto and follow a person's face with high accuracy. This feature is ideal for personalized videography, security, and surveillance applications, as it guarantees the subject remains in focus and centered in the frame, enhancing the quality and effectiveness of the captured footage.</p>
+                    <p>Utilizing advanced AI algorithms, the Face Detection and Tracking module ensures the drone can
+                        lock onto and follow a person's face with high accuracy. This feature is ideal for personalized
+                        videography, security, and surveillance applications, as it guarantees the subject remains in
+                        focus and centered in the frame, enhancing the quality and effectiveness of the captured
+                        footage.</p>
                 </div>
                 <div class="right-side w-50">
-                    <img src="{{ url_for('static', filename='images/facetracking.jpg') }}" class="img-fluid" alt="Face Tracking" style="max-width: 400px; max-height: 400px;">
-                  </div>
+                    <img src="{{ url_for('static', filename='images/facetracking.jpg') }}" class="img-fluid"
+                        alt="Face Tracking" style="max-width: 400px; max-height: 400px;">
+                </div>
             </div>
 
             <!-- Body Tracking Details -->
             <div class="d-flex align-items-center justify-content-between w-100 mt-5">
                 <div class="right-side w-50">
-                    <img src="{{ url_for('static', filename='images/bodyTracking.jpg') }}" class="img-fluid" alt="Body Tracking" style="max-width: 400px; max-height: 400px;">
+                    <img src="{{ url_for('static', filename='images/bodyTracking.jpg') }}" class="img-fluid"
+                        alt="Body Tracking" style="max-width: 400px; max-height: 400px;">
                 </div>
                 <div class="left-side w-50">
                     <h3>Body Tracking</h3>
-                    <p>The Body Detection and Tracking leverages sophisticated machine learning techniques to recognize and follow the movements of a person. This hands-free operation is particularly useful for activities like sports, outdoor events, and professional filming, where continuous and dynamic tracking is required. It ensures the drone can autonomously follow the subject, providing a seamless recording experience.</p>
+                    <p>The Body Detection and Tracking leverages sophisticated machine learning techniques to recognize
+                        and follow the movements of a person. This hands-free operation is particularly useful for
+                        activities like sports, outdoor events, and professional filming, where continuous and dynamic
+                        tracking is required. It ensures the drone can autonomously follow the subject, providing a
+                        seamless recording experience.</p>
                 </div>
             </div>
 
@@ -124,21 +167,31 @@
             <div class="d-flex align-items-center justify-content-between w-100 mt-5">
                 <div class="left-side w-50">
                     <h3>Hand Gesture Control</h3>
-                    <p>With the Hand Gesture Control, users can command the drone through simple and intuitive hand gestures. This feature eliminates the need for traditional remote controls, making drone operation accessible and engaging. It is especially beneficial in situations where quick, hands-free control is necessary, such as during active filming or in search and rescue missions.</p>
+                    <p>With the Hand Gesture Control, users can command the drone through simple and intuitive hand
+                        gestures. This feature eliminates the need for traditional remote controls, making drone
+                        operation accessible and engaging. It is especially beneficial in situations where quick,
+                        hands-free control is necessary, such as during active filming or in search and rescue missions.
+                    </p>
                 </div>
                 <div class="right-side w-50">
-                    <img src="{{ url_for('static', filename='images/handGesture.jpg') }}" class="img-fluid" alt="Hand Gesture Control" style="max-width: 400px; max-height: 400px;">
+                    <img src="{{ url_for('static', filename='images/handGesture.jpg') }}" class="img-fluid"
+                        alt="Hand Gesture Control" style="max-width: 400px; max-height: 400px;">
                 </div>
             </div>
 
             <!-- Keypad Control Details -->
             <div class="d-flex align-items-center justify-content-between w-100 mt-5">
                 <div class="right-side w-50">
-                    <img src="{{ url_for('static', filename='images/keyPad.jpg') }}" class="img-fluid" alt="Keypad Control" style="max-width: 400px; max-height: 400px;">
-                    </div>
+                    <img src="{{ url_for('static', filename='images/keyPad.jpg') }}" class="img-fluid"
+                        alt="Keypad Control" style="max-width: 400px; max-height: 400px;">
+                </div>
                 <div class="left-side w-50">
                     <h3>Keypad Control</h3>
-                    <p>Keypad Control allows users to maneuver the drone with precision using a straightforward interface. Commands such as takeoff, land, move up/down, left/right, yaw, and perform flips are easily accessible, ensuring efficient and responsive control. This feature is perfect for both novice users and experienced pilots, providing a reliable and intuitive way to navigate the drone.</p>
+                    <p>Keypad Control allows users to maneuver the drone with precision using a straightforward
+                        interface. Commands such as takeoff, land, move up/down, left/right, yaw, and perform flips are
+                        easily accessible, ensuring efficient and responsive control. This feature is perfect for both
+                        novice users and experienced pilots, providing a reliable and intuitive way to navigate the
+                        drone.</p>
                 </div>
             </div>
 
@@ -146,21 +199,29 @@
             <div class="d-flex align-items-center justify-content-between w-100 mt-5">
                 <div class="right-side w-50">
                     <h3>Fire Detection</h3>
-                    <p>The Fire Detection module provides advanced fire hazard identification, leveraging thermal imaging and AI algorithms. This feature is essential for early warning systems in areas prone to wildfires, industrial sites, and large public venues. It enhances safety by detecting fires early and enabling prompt response, potentially saving lives and property.</p>
+                    <p>The Fire Detection module provides advanced fire hazard identification, leveraging thermal
+                        imaging and AI algorithms. This feature is essential for early warning systems in areas prone to
+                        wildfires, industrial sites, and large public venues. It enhances safety by detecting fires
+                        early and enabling prompt response, potentially saving lives and property.</p>
                 </div>
                 <div class="left-side w-50">
-                    <img src="{{ url_for('static', filename='images/fireDetection.jpg') }}" class="img-fluid" alt="Fire Detection" style="max-width: 400px; max-height: 400px;">
+                    <img src="{{ url_for('static', filename='images/fireDetection.jpg') }}" class="img-fluid"
+                        alt="Fire Detection" style="max-width: 400px; max-height: 400px;">
                 </div>
             </div>
 
             <!-- Gun Detection Details -->
             <div class="d-flex align-items-center justify-content-between w-100 mt-5">
                 <div class="left-side w-50">
-                    <img src="{{ url_for('static', filename='images/gunDetection.jpg') }}" class="img-fluid" alt="Gun Detection" style="max-width: 400px; max-height: 400px;">
+                    <img src="{{ url_for('static', filename='images/gunDetection.jpg') }}" class="img-fluid"
+                        alt="Gun Detection" style="max-width: 400px; max-height: 400px;">
                 </div>
                 <div class="right-side w-50">
                     <h3>Gun Detection</h3>
-                    <p>To enhance the security capabilities of FUAVS by identifying firearms in real-time. This feature is crucial for surveillance in sensitive areas, such as schools, public events, and restricted zones. By promptly detecting potential threats, it ensures a rapid response, thereby increasing safety and security.</p>
+                    <p>To enhance the security capabilities of FUAVS by identifying firearms in real-time. This feature
+                        is crucial for surveillance in sensitive areas, such as schools, public events, and restricted
+                        zones. By promptly detecting potential threats, it ensures a rapid response, thereby increasing
+                        safety and security.</p>
                 </div>
             </div>
         </div>

@@ -2,7 +2,8 @@
 
 {% block left_side %}
 <div class="text-center w-100 position-relative">
-    <img src="{{ url_for('static', filename='images/LoginDrone.png') }}" alt="Login Drone" class="background-image img-fluid position-absolute top-50 start-50 translate-middle" style="opacity: 1;">
+    <img src="{{ url_for('static', filename='images/LoginDrone.png') }}" alt="Login Drone"
+        class="background-image img-fluid position-absolute top-50 start-50 translate-middle" style="opacity: 1;">
 </div>
 {% endblock %}
 
@@ -21,19 +22,23 @@
             <form class="mt-5" method="POST" action="/login">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Your Email" autofocus="">
-                    <div id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.</div>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        name="email" placeholder="Your Email" autofocus="">
+                    <div id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Your Password">
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="password"
+                        placeholder="Your Password">
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" name="remember" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Login</button>
-                <span class="ms-3">Don't have an account? <a href="{{ url_for('auth.signup') }}">Create account?</a></span>
+                <span class="ms-3">Don't have an account? <a href="{{ url_for('auth.signup') }}">Create
+                        account?</a></span>
             </form>
         </div>
     </div>

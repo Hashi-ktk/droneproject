@@ -10,20 +10,20 @@
   </div>
   <div class="row" id="videos-container">
     {% for video in videos %}
-      <div class="col-md-4 video-card" id="video-{{ video }}">
-        <div class="card mb-4" style="width: 18rem;">
-          <video class="card-video-top" controls>
-            <source src="{{ url_for('main.send_video', username=username, filename=video) }}" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <div class="card-body">
-            <a href="#" class="btn btn-danger btn-sm" onclick="deleteVideo('{{ video }}'); return false;">Delete</a>
-          </div>
+    <div class="col-md-4 video-card" id="video-{{ video }}">
+      <div class="card mb-4" style="width: 18rem;">
+        <video class="card-video-top" controls>
+          <source src="{{ url_for('main.send_video', username=username, filename=video) }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="card-body">
+          <a href="#" class="btn btn-danger btn-sm" onclick="deleteVideo('{{ video }}'); return false;">Delete</a>
         </div>
       </div>
+    </div>
     {% endfor %}
     {% if not videos %}
-      <p class="text-center">No videos found.</p>
+    <p class="text-center">No videos found.</p>
     {% endif %}
   </div>
 </div>
@@ -40,7 +40,7 @@
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify({ video: video }),
-        success: function(response) {
+        success: function (response) {
           console.log('Delete response:', response); // Debugging
           if (response.success) {
             $('#video-' + response.video).remove();
@@ -51,7 +51,7 @@
             alert('Failed to delete video.');
           }
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
           console.error('Delete error:', error); // Debugging
         }
       });

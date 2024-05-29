@@ -1,41 +1,45 @@
 {% extends "base.html" %}
 
 {% block left_side %}
-    <div class="team-section">
-        <h1>Our Team</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
+<div class="team-section">
+    <h1>Our Team</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat.</p>
+</div>
 {% endblock %}
 
 {% block right_side %}
-    <div class="team-cards">
-        <div class="team-card team-card-1">
-            <div class="team-card-inner">
-                <img src="{{ url_for('static', filename='images/team.jpg') }}" alt="Team Member 1">
-                <div class="team-card-overlay">
-                    <h2>John Doe</h2>
-                    <p>Project Manager</p>
-                </div>
-            </div>
-        </div>
-        <div class="team-card team-card-2">
-            <div class="team-card-inner">
-                <img src="{{ url_for('static', filename='images/team.jpg') }}" alt="Team Member 2">
-                <div class="team-card-overlay">
-                    <h2>Jane Smith</h2>
-                    <p>Lead Developer</p>
-                </div>
-            </div>
-        </div>
-        <div class="team-card team-card-3">
-            <div class="team-card-inner">
-                <img src="{{ url_for('static', filename='images/team.jpg') }}" alt="Team Member 3">
-                <div class="team-card-overlay">
-                    <h2>Mike Johnson</h2>
-                    <p>UX Designer</p>
-                </div>
+<div class="team-cards">
+    <div class="team-card team-card-1">
+        <div class="team-card-inner">
+            <img src="{{ url_for('static', filename='images/team.jpg') }}" alt="Team Member 1">
+            <div class="team-card-overlay">
+                <h2>John Doe</h2>
+                <p>Project Manager</p>
             </div>
         </div>
     </div>
+    <div class="team-card team-card-2">
+        <div class="team-card-inner">
+            <img src="{{ url_for('static', filename='images/team.jpg') }}" alt="Team Member 2">
+            <div class="team-card-overlay">
+                <h2>Jane Smith</h2>
+                <p>Lead Developer</p>
+            </div>
+        </div>
+    </div>
+    <div class="team-card team-card-3">
+        <div class="team-card-inner">
+            <img src="{{ url_for('static', filename='images/team.jpg') }}" alt="Team Member 3">
+            <div class="team-card-overlay">
+                <h2>Mike Johnson</h2>
+                <p>UX Designer</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
