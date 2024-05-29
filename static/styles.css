@@ -49,6 +49,7 @@ body {
 .left-side,
 .right-side {
     padding: 20px;
+    padding-top: 0%;
 }
 
 
@@ -83,9 +84,13 @@ p {
 
 .team-section {
     margin-bottom: 20px;
+    
+    position: relative;
+    padding-top: 0%;
 }
 
 .team-cards {
+    padding-left: -80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -94,7 +99,7 @@ p {
 }
 
 .team-card {
-    width: 270px;
+    width: 210px;
     /* Slightly increased width */
     aspect-ratio: 4 / 5;
     /* Aspect ratio 4:5 */
