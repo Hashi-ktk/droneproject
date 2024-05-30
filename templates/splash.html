@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splash Screen</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #splash-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #splash-drone {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+            animation: fade-in 2s ease-in-out forwards;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        #splash-text {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 20px;
+            border-right: .15em solid #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            opacity: 0;
+            animation: typing 2s steps(40, end), blink-caret .75s step-end infinite, fade-in 2s ease-in-out forwards;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+            from,
+            to {
+                border-color: transparent;
+            }
+            50% {
+                border-color: #ffffff;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="splash-screen">
+        <div id="splash-drone"></div>
+        <div id="splash-text">FUAVS-Follow-Me UAV System</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
+    <script>
+        var splashAnimation = lottie.loadAnimation({
+            container: document.getElementById('splash-drone'),
+            renderer: 'svg',
+            loop: true, // Set loop to true for infinite looping
+            autoplay: true,
+            path: "{{ url_for('static', filename='splashDrone.json') }}"
+        });
+
+        setTimeout(function () {
+            document.getElementById('splash-text').style.opacity = 1;
+            setTimeout(function () {
+                localStorage.setItem('hasVisited', 'true');
+                window.location.href = '/';
+            }, 1000); // Redirect after 2 seconds
+        }, 2000); // Wait for 3 seconds
+    </script>
+</body>
+
+</html>

@@ -8,6 +8,10 @@ main = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
+@main.route('/splash')
+def splash():
+    return render_template('splash.html')
+
 @main.route('/team')
 def team():
     return render_template('team.html')

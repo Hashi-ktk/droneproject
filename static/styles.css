@@ -67,57 +67,90 @@ body {
     width: 100%;
     height: 800px;
 }
-
-.text-center {
-    padding: 20px;
+/* Keyframes for sliding in text from the right */
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
-h3 {
-    margin-top: 20px;
-    font-weight: bold;
+/* Keyframes for moving cards from the origin to their final positions */
+@keyframes moveToPosition1 {
+    0% {
+        transform: translate(-200px, -130px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
 }
 
-p {
-    margin: 10px 0;
-    line-height: 1.6;
+@keyframes moveToPosition2 {
+    0% {
+        transform: translate(130px, 0);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes moveToPosition3 {
+    0% {
+        transform: translate(-200px, 130px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
 }
 
 .team-section {
     margin-bottom: 20px;
-    
     position: relative;
     padding-top: 0%;
+    animation: slideInFromRight 1s ease-out;
 }
 
 .team-cards {
-    padding-left: -80px;
+    padding-left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    /* Added to allow absolute positioning of children */
 }
 
+/* General styles for team cards */
 .team-card {
     width: 210px;
-    /* Slightly increased width */
     aspect-ratio: 4 / 5;
-    /* Aspect ratio 4:5 */
     margin: 20px;
     overflow: hidden;
     position: relative;
     border-radius: 15px;
-    /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Shadow effect */
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.team-card:hover {
-    transform: scale(1.05);
-    /* Scale up on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    /* Enhanced shadow on hover */
+/* Specific initial positions for animation */
+.team-card-1 {
+    top: 130px;
+    left: 200px;
+    animation: moveToPosition1 1s ease-out forwards;
+}
+
+.team-card-2 {
+    top: 0;
+    left: -130px;
+    animation: moveToPosition2 1s ease-out forwards;
+}
+
+.team-card-3 {
+    bottom: 130px;
+    left: 200px;
+    animation: moveToPosition3 1s ease-out forwards;
 }
 
 .team-card-inner {
@@ -140,7 +173,6 @@ p {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    /* Dark overlay */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -162,28 +194,6 @@ p {
 .team-card-overlay p {
     margin: 5px 0;
 }
-
-/* Zigzag positioning for team cards */
-.team-card-1 {
-    top: 130px;
-    /* First card stays at the top */
-    left: 200px;
-    /* Adjust left position */
-}
-
-.team-card-2 {
-    /* Adjusted top position to move it down */
-    left: -130px;
-    /* Adjust left position */
-}
-
-.team-card-3 {
-    bottom: 130px;
-    /* Adjusted top position to move it down */
-    left: 200px;
-    /* Adjust left position */
-}
-
 
 /* Additional styles for login page */
 .background-image {
@@ -240,26 +250,21 @@ p {
     border-radius: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0.3s ease;
     width: 15%;
-    /* Adjust the width to make the cards smaller */
     margin: 0 10px;
-    /* Add margin between the cards */
 }
 
 .module-card:hover {
-    transform: scale(1.2); /* Only the hovered card will expand */
+    transform: scale(1.2);
     box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 0.3);
-    z-index: 1; /* Ensure the expanded card appears above others */
-    
+    z-index: 1;
 }
 
 .module-card .card-body {
     padding: 15px;
-    /* Adjust padding for a smaller card size */
 }
 
 .module-card .card-title {
     font-size: 20px;
-    /* Adjust font size for a smaller card */
     font-weight: bold;
     color: #fff;
 }
@@ -276,7 +281,6 @@ p {
 .module-card .continue-icon {
     display: none;
     width: 25px;
-    /* Adjust icon size for a smaller card */
     height: 25px;
     margin-top: 10px;
 }
@@ -284,7 +288,6 @@ p {
 .image-container {
     width: 100%;
     padding-top: 125%;
-    /* 4:5 aspect ratio */
     position: relative;
     overflow: hidden;
     border-top-left-radius: 10px;
@@ -309,6 +312,37 @@ p {
 .continue-icon {
     display: none;
 }
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in-left {
+    animation: slideInLeft 1s forwards;
+}
+
+.slide-in-right {
+    animation: slideInRight 1s forwards;
+}
+
 
 
 /* Custom button styling */
@@ -448,4 +482,65 @@ p {
 .video-card {
     margin-bottom: 1.5rem;
     /* Adds some spacing between cards */
+}
+
+
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 2s;
+}
+
+#splash-animation-container {
+    width: 200px;
+    height: 200px;
+}
+
+#splash-text {
+    font-size: 2em;
+    margin-top: 20px;
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+/* Keyframes for sliding in text and images from left and right */
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Apply animation to text and images */
+.col-md-6.text-center img {
+    animation: slideInFromRight 1s ease-out;
+}
+
+.col-md-6.mt-5.pt-5 {
+    animation: slideInFromLeft 1s ease-out;
 }
