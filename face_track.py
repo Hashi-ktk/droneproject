@@ -9,18 +9,18 @@ import os
 
 face_tracking = Blueprint('face_tracking', __name__)
 
-# width and height of the camera 360, 240
+# Width and height of the camera 360, 240
 w, h = 360, 240
 
-# pid values for smooth moving
+# PID values for smooth moving
 pid = [0.35, 0.35, 0]
 pError = 0
 pError_y = 0
 
-# face limit area
+# Face limit area
 faceLimitArea = [8000, 10000]
 
-# drone state variables
+# Drone state variables
 tello = None
 takeoff = False
 land = False
@@ -30,85 +30,94 @@ out = None
 
 # Initialize Tello
 def init_tello():
-    tello = Tello()
-    Tello.LOGGER.setLevel(logging.WARNING)
-    tello.connect()
-    print("Tello battery:", tello.get_battery())
+    try:
+        tello = Tello()
+        Tello.LOGGER.setLevel(logging.WARNING)
+        tello.connect()
+        print("Tello battery:", tello.get_battery())
 
-    # velocity values
-    tello.for_back_velocity = 0
-    tello.left_right_velocity = 0
-    tello.up_down_velocity = 0
-    tello.yaw_velocity = 0
-    tello.speed = 0
+        # Velocity values
+        tello.for_back_velocity = 0
+        tello.left_right_velocity = 0
+        tello.up_down_velocity = 0
+        tello.yaw_velocity = 0
+        tello.speed = 0
 
-    # Streaming
-    tello.streamoff()
-    tello.streamon()
+        # Streaming
+        tello.streamoff()
+        tello.streamon()
 
-    return tello
+        return tello
+    except Exception as e:
+        print(f"Error initializing Tello: {e}")
+        return None
 
 # Get frame on stream
 def get_frame(tello, w=w, h=h):
-    tello_frame = tello.get_frame_read().frame
-    return cv2.resize(tello_frame, (w, h))
+    try:
+        tello_frame = tello.get_frame_read().frame
+        return cv2.resize(tello_frame, (w, h))
+    except Exception as e:
+        print(f"Error getting frame: {e}")
+        return np.zeros((h, w, 3), dtype=np.uint8)
 
 # Detecting frontal faces on the given image
 def face_detect(img):
-    frontal_face = cv2.CascadeClassifier("Resources/haarcascade_frontalface_default.xml")
-    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    img_faces = frontal_face.detectMultiScale(img_gray, 1.2, 8)
+    try:
+        frontal_face = cv2.CascadeClassifier("Resources/haarcascade_frontalface_default.xml")
+        img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img_faces = frontal_face.detectMultiScale(img_gray, 1.2, 8)
 
-    face_list = []
-    face_list_area = []
+        face_list = []
+        face_list_area = []
 
-    for (x, y, w, h) in img_faces:
-        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        cx = x + w // 2
-        cy = y + h // 2
-        face_list.append([cx, cy])
-        face_list_area.append(w * h)
+        for (x, y, w, h) in img_faces:
+            cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cx = x + w // 2
+            cy = y + h // 2
+            face_list.append([cx, cy])
+            face_list_area.append(w * h)
 
-    if len(face_list_area) != 0:
-        i = face_list_area.index(max(face_list_area))
-        return img, [face_list[i], face_list_area[i]]
-    else:
+        if len(face_list_area) != 0:
+            i = face_list_area.index(max(face_list_area))
+            return img, [face_list[i], face_list_area[i]]
+        else:
+            return img, [[0, 0], 0]
+    except Exception as e:
+        print(f"Error detecting face: {e}")
         return img, [[0, 0], 0]
 
-# Tracking face smoothly with pid
+# Tracking face smoothly with PID
 def face_track(tello, face_info, w, h, pid, pError, pError_y):
-    x = face_info[0][0]
-    y = face_info[0][1]
-    area = face_info[1]
-    forw_backw = 0
-
-    error = x - w // 2
-    speed = pid[0] * error + pid[1] * (error - pError)
-    speed = int(np.clip(speed, -60, 60))
-
-    error_y = h // 2 - y
-    speed_y = pid[0] * error_y + pid[1] * (error_y - pError_y)
-    speed_y = int(np.clip(speed_y, -60, 60))
-
-    if x != 0:
-        tello.yaw_velocity = speed
-    else:
-        tello.yaw_velocity = 0
-
-    if y != 0:
-        tello.up_down_velocity = speed_y
-    else:
-        tello.up_down_velocity = 0
-
-    if faceLimitArea[0] < area < faceLimitArea[1]:
+    try:
+        x = face_info[0][0]
+        y = face_info[0][1]
+        area = face_info[1]
         forw_backw = 0
-    elif area > faceLimitArea[1]:
-        forw_backw = -10
-    elif area < faceLimitArea[0] and area > 100:
-        forw_backw = 10
 
-    tello.send_rc_control(0, forw_backw, tello.up_down_velocity, tello.yaw_velocity)
-    return error, error_y
+        error = x - w // 2
+        speed = pid[0] * error + pid[1] * (error - pError)
+        speed = int(np.clip(speed, -60, 60))
+
+        error_y = h // 2 - y
+        speed_y = pid[0] * error_y + pid[1] * (error_y - pError_y)
+        speed_y = int(np.clip(speed_y, -60, 60))
+
+        tello.yaw_velocity = speed if x != 0 else 0
+        tello.up_down_velocity = speed_y if y != 0 else 0
+
+        if faceLimitArea[0] < area < faceLimitArea[1]:
+            forw_backw = 0
+        elif area > faceLimitArea[1]:
+            forw_backw = -10
+        elif area < faceLimitArea[0] and area > 100:
+            forw_backw = 10
+
+        tello.send_rc_control(0, forw_backw, tello.up_down_velocity, tello.yaw_velocity)
+        return error, error_y
+    except Exception as e:
+        print(f"Error tracking face: {e}")
+        return pError, pError_y
 
 # Route handler for video stream
 @face_tracking.route('/facetracker_video_feed')
@@ -118,7 +127,7 @@ def facetracker_video_feed():
     tello = init_tello()
     
     def generate_frames():
-        global takeoff, pError, pError_y, land, stop_tracking, recording, out
+        global tello, takeoff, pError, pError_y, land, stop_tracking, recording, out
         while True:
             if stop_tracking:
                 if land:
@@ -165,53 +174,69 @@ def facetracker_video_feed():
 @login_required
 def capture_image():
     global tello
-    user = current_user.name
-    img = get_frame(tello, w, h)
-    user_dir = os.path.join('Images', user)
-    os.makedirs(user_dir, exist_ok=True)
-    i = 0
-    while True:
-        image_path = os.path.join(user_dir, f'image{i}.jpg')
-        if not os.path.exists(image_path):
-            cv2.imwrite(image_path, img)
-            break
-        i += 1
-    return f"Image saved as {image_path}"
+    try:
+        user = current_user.name
+        img = get_frame(tello, w, h)
+        user_dir = os.path.join('Images', user)
+        os.makedirs(user_dir, exist_ok=True)
+        i = 0
+        while True:
+            image_path = os.path.join(user_dir, f'image{i}.jpg')
+            if not os.path.exists(image_path):
+                cv2.imwrite(image_path, img)
+                break
+            i += 1
+        return f"Image saved as {image_path}"
+    except Exception as e:
+        print(f"Error capturing image: {e}")
+        return "Failed to capture image"
 
 @face_tracking.route('/start_recording')
 @login_required
 def start_recording():
     global recording, out
-    user = current_user.name
-    if not recording:
-        user_dir = os.path.join('Videos', user)
-        os.makedirs(user_dir, exist_ok=True)
-        i = 0
-        while True:
-            video_path = os.path.join(user_dir, f'video{i}.mp4')
-            if not os.path.exists(video_path):
-                fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-                out = cv2.VideoWriter(video_path, fourcc, 30.0, (w, h))
-                recording = True
-                break
-            i += 1
-        return f"Recording started and will be saved as {video_path}"
-    return "Already recording"
+    try:
+        user = current_user.name
+        if not recording:
+            user_dir = os.path.join('Videos', user)
+            os.makedirs(user_dir, exist_ok=True)
+            i = 0
+            while True:
+                video_path = os.path.join(user_dir, f'video{i}.mp4')
+                if not os.path.exists(video_path):
+                    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+                    out = cv2.VideoWriter(video_path, fourcc, 30.0, (w, h))
+                    recording = True
+                    break
+                i += 1
+            return f"Recording started and will be saved as {video_path}"
+        return "Already recording"
+    except Exception as e:
+        print(f"Error starting recording: {e}")
+        return "Failed to start recording"
 
 @face_tracking.route('/stop_recording')
 def stop_recording():
     global recording, out
-    if recording and out is not None:
-        out.release()
-        recording = False
-        return "Recording stopped and saved"
-    return "No active recording to stop"
+    try:
+        if recording and out is not None:
+            out.release()
+            recording = False
+            return "Recording stopped and saved"
+        return "No active recording to stop"
+    except Exception as e:
+        print(f"Error stopping recording: {e}")
+        return "Failed to stop recording"
 
 @face_tracking.route('/stop_facetracking')
 def stop_facetracking():
     global stop_tracking
-    stop_tracking = True
-    return render_template('profile.html')
+    try:
+        stop_tracking = True
+        return render_template('profile.html')
+    except Exception as e:
+        print(f"Error stopping face tracking: {e}")
+        return "Failed to stop face tracking"
 
 @face_tracking.route('/connect_to_facetracker')
 def connect_to_facetracker():
