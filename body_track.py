@@ -59,20 +59,7 @@ def bodytracker_video_feed():
 
     def generate_frames():
         global takeoff, land, stop_tracking, recording, out, tello
-        while True:
-            if stop_tracking:
-                if land:
-                    if tello:
-                        tello.streamoff()
-                        tello.land()
-                        tello.end()
-                        tello = None
-                    land = False
-                if recording and out is not None:
-                    out.release()
-                    recording = False
-                break
-
+        while not stop_tracking:
             if not takeoff and tello:
                 try:
                     tello.takeoff()
@@ -110,6 +97,17 @@ def bodytracker_video_feed():
                 frame = jpeg.tobytes()
                 yield (b'--frame\r\n'
                        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+            if land:
+                if tello:
+                    tello.land()
+                    tello.end()
+                    tello = None
+                land = False
+
+        if recording and out is not None:
+            out.release()
+            recording = False
 
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 

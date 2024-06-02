@@ -30,7 +30,7 @@ def create_app():
     from face_track import face_tracking
     from body_track import body_tracking
     from handgestures_control import handgestures_control
-    from handgesture_control import handgesture_control
+    # from handgesture_control import handgesture_control
     from keypad_control import keypad_control
     from gun_detecting import gun_detecting
     from fire_detecting import fire_detecting
@@ -42,7 +42,7 @@ def create_app():
     app.register_blueprint(face_tracking)
     app.register_blueprint(body_tracking)
     app.register_blueprint(handgestures_control)
-    app.register_blueprint(handgesture_control)
+    # app.register_blueprint(handgesture_control)
     app.register_blueprint(keypad_control)
     app.register_blueprint(gun_detecting)
     app.register_blueprint(fire_detecting)
