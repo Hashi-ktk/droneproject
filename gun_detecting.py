@@ -2,7 +2,7 @@ import cv2
 import imutils
 import datetime
 from djitellopy import Tello
-from flask import Blueprint, render_template, Response, request
+from flask import Blueprint, render_template, Response
 from flask_login import login_required, current_user
 import os
 import pygame
@@ -13,17 +13,23 @@ alarm_sound = pygame.mixer.Sound("Alarms/security-alarm.mp3")
 
 gun_detecting = Blueprint('gun_detecting', __name__)
 
+# Load the cascade classifier for gun detection
 gun_cascade = cv2.CascadeClassifier('Resources/cascade.xml')
+
+# Global variables
 me = None
 stop_tracking = False
+recording = False
+out = None
 
 # Initialize Tello
 def init_tello():
     global me
-    me = Tello()
-    me.connect()
-    me.streamoff()
-    me.streamon()
+    if me is None:
+        me = Tello()
+        me.connect()
+        me.streamoff()
+        me.streamon()
     return me
 
 @gun_detecting.route('/gundetecter_video_feed')
@@ -35,7 +41,6 @@ def gundetecter_video_feed():
     stop_tracking = False
 
     def generate_frames():
-        firstFrame = None
         alarm_playing = False
 
         while not stop_tracking:
@@ -58,10 +63,6 @@ def gundetecter_video_feed():
 
             for (x, y, w, h) in gun:
                 frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
-
-            if firstFrame is None:
-                firstFrame = gray
-                continue
 
             cv2.putText(frame, datetime.datetime.now().strftime("%A %d %B %Y %I:%M:%S %p"),
                         (10, frame.shape[0] - 10),
@@ -100,7 +101,10 @@ def capture_image():
 @gun_detecting.route('/start_recording')
 @login_required
 def start_recording():
-    global me, out
+    global me, out, recording
+    if recording:
+        return "Already recording"
+
     user = current_user.name
     user_dir = os.path.join('Videos', user)
     os.makedirs(user_dir, exist_ok=True)
@@ -110,6 +114,7 @@ def start_recording():
         if not os.path.exists(video_path):
             fourcc = cv2.VideoWriter_fourcc(*'mp4v')
             out = cv2.VideoWriter(video_path, fourcc, 30.0, (640, 480))
+            recording = True
             break
         i += 1
     return f"Recording started and will be saved as {video_path}"
@@ -117,10 +122,11 @@ def start_recording():
 @gun_detecting.route('/stop_recording')
 @login_required
 def stop_recording():
-    global out
-    if out is not None:
+    global out, recording
+    if recording and out is not None:
         out.release()
         out = None
+        recording = False
         return "Recording stopped and saved"
     return "No active recording to stop"
 
@@ -133,4 +139,3 @@ def stop_gundetecting():
     global stop_tracking
     stop_tracking = True
     return "Gun detection stopped"
-

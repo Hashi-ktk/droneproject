@@ -1,11 +1,12 @@
 import cv2
 from djitellopy import Tello
-from flask import Blueprint, render_template, Response, request
+from flask import Blueprint, render_template, Response
 from flask_login import login_required, current_user
 import os
 import pygame
 import datetime
 import imutils
+import threading
 
 pygame.init()
 pygame.mixer.init()
@@ -16,16 +17,20 @@ fire_detecting = Blueprint('fire_detecting', __name__)
 # Load the cascade classifier for fire detection
 fire_cascade = cv2.CascadeClassifier('Resources/fire_detection_cascade_model.xml')
 
+# Global variables
 me = None
 stop_tracking = False
+recording = False
+out = None
 
 # Initialize Tello
 def init_tello():
     global me
-    me = Tello()
-    me.connect()
-    me.streamoff()
-    me.streamon()
+    if me is None:
+        me = Tello()
+        me.connect()
+        me.streamoff()
+        me.streamon()
     return me
 
 @fire_detecting.route('/fire_detecting_video_feed')
@@ -103,7 +108,10 @@ def capture_image():
 @fire_detecting.route('/start_recording')
 @login_required
 def start_recording():
-    global me, out
+    global me, out, recording
+    if recording:
+        return "Already recording"
+
     user = current_user.name
     user_dir = os.path.join('Videos', user)
     os.makedirs(user_dir, exist_ok=True)
@@ -113,6 +121,7 @@ def start_recording():
         if not os.path.exists(video_path):
             fourcc = cv2.VideoWriter_fourcc(*'mp4v')
             out = cv2.VideoWriter(video_path, fourcc, 30.0, (640, 480))
+            recording = True
             break
         i += 1
     return f"Recording started and will be saved as {video_path}"
@@ -120,10 +129,11 @@ def start_recording():
 @fire_detecting.route('/stop_recording')
 @login_required
 def stop_recording():
-    global out
-    if out is not None:
+    global out, recording
+    if recording and out is not None:
         out.release()
         out = None
+        recording = False
         return "Recording stopped and saved"
     return "No active recording to stop"
 

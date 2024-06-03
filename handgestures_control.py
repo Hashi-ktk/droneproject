@@ -16,9 +16,9 @@ hands = mpHands.Hands(min_detection_confidence=0.8, min_tracking_confidence=0.8)
 mpDraw = mp.solutions.drawing_utils
 
 # Global variables
-tello = None
+tello = Tello()
+tello.LOGGER.setLevel(logging.ERROR)  # Ignore INFO from Tello
 gesture = 'Unknown'
-fly = False
 stop_tracking = False
 recording = False
 out = None
@@ -50,25 +50,32 @@ def hand_detection():
         # Read the frame from Tello
         frame = tello.get_frame_read().frame
         frame = cv2.flip(frame, 1)
+
+        # Process frame for hand detection
         result = hands.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+
+        # Get frame dimensions
         frame_height = frame.shape[0]
         frame_width = frame.shape[1]
         my_hand = []
 
         if result.multi_hand_landmarks:
             for handlms, handside in zip(result.multi_hand_landmarks, result.multi_handedness):
-                if handside.classification[0].label == 'Right':
+                if handside.classification[0].label == 'Right':  # Skip right hand
                     continue
 
+                # Draw landmarks
                 mpDraw.draw_landmarks(frame, handlms, mpHands.HAND_CONNECTIONS,
                                       mp.solutions.drawing_styles.get_default_hand_landmarks_style(),
                                       mp.solutions.drawing_styles.get_default_hand_connections_style())
 
+                # Get landmark positions
                 for i, landmark in enumerate(handlms.landmark):
                     x = int(landmark.x * frame_width)
                     y = int(landmark.y * frame_height)
                     my_hand.append((x, y))
 
+                # Determine gesture based on hand landmarks
                 finger_on = []
                 if my_hand[4][0] > my_hand[2][0]:
                     finger_on.append(1)
