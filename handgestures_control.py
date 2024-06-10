@@ -38,15 +38,7 @@ def init_tello():
 def hand_detection():
     global gesture, stop_tracking, recording, out
 
-    while True:
-        if stop_tracking:
-            tello.streamoff()
-            tello.end()
-            if recording and out is not None:
-                out.release()
-                recording = False
-            break
-
+    while not stop_tracking:
         # Read the frame from Tello
         frame = tello.get_frame_read().frame
         frame = cv2.flip(frame, 1)
@@ -110,6 +102,14 @@ def hand_detection():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
+        if stop_tracking:
+            tello.streamoff()
+            tello.end()
+            if recording and out is not None:
+                out.release()
+                recording = False
+            break
+
 def control_drone():
     global gesture, stop_tracking
 
@@ -157,9 +157,13 @@ def handgestures_video_feed():
 
 @handgestures_control.route('/stop_handgestures')
 def stop_handgestures():
-    global stop_tracking
+    global stop_tracking, recording, out
     stop_tracking = True
+    if recording and out is not None:
+        out.release()
+        recording = False
     return render_template('profile.html')
+
 
 @handgestures_control.route('/connect_to_handgestures')
 def connect_to_handgestures():
@@ -167,9 +171,11 @@ def connect_to_handgestures():
 
 @handgestures_control.route('/disconnect_to_handgestures')
 def disconnect_to_handgestures():
-    global tello
-    tello.streamoff()
-    tello.end()
+    global stop_tracking, recording, out
+    stop_tracking = True
+    if recording and out is not None:
+        out.release()
+        recording = False
     return render_template('profile.html')
 
 @handgestures_control.route('/capture_image')
@@ -209,6 +215,7 @@ def start_recording():
             i += 1
         return f"Recording started and will be saved as {video_path}"
     return "Already recording"
+
 
 @handgestures_control.route('/stop_recording')
 @login_required

@@ -92,11 +92,11 @@ def bodytracker_video_feed():
 
                 if recording and out is not None:
                     out.write(img)
-                
+
                 ret, jpeg = cv2.imencode('.jpg', img)
                 frame = jpeg.tobytes()
                 yield (b'--frame\r\n'
-                       b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
             if land:
                 if tello:
@@ -113,9 +113,13 @@ def bodytracker_video_feed():
 
 @body_tracking.route('/stop_bodytracking')
 def stop_bodytracking():
-    global stop_tracking
+    global stop_tracking, recording, out
     stop_tracking = True
+    if recording and out is not None:
+        out.release()
+        recording = False
     return render_template('profile.html')
+
 
 @body_tracking.route('/connect_to_bodytracker')
 def connect_to_bodytracker():
@@ -140,6 +144,7 @@ def capture_image():
     return "Failed to capture image"
 
 @body_tracking.route('/start_recording')
+@login_required
 def start_recording():
     global recording, out    
     user = current_user.name
@@ -150,13 +155,14 @@ def start_recording():
         while True:
             video_path = os.path.join(user_dir, f'video{i}.mp4')
             if not os.path.exists(video_path):
-                fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+                fourcc = cv2.VideoWriter_fourcc(*'XVID')
                 out = cv2.VideoWriter(video_path, fourcc, 30.0, (WI, HI))
                 recording = True
                 break
             i += 1
         return f"Recording started and will be saved as {video_path}"
     return "Already recording"
+
 
 @body_tracking.route('/stop_recording')
 def stop_recording():
